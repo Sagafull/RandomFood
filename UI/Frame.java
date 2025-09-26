@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Frame extends JFrame {
-    
     Container cp;
     StartUI startUI;
     RandomMenuUI randomMenuUI;
@@ -21,13 +20,11 @@ public class Frame extends JFrame {
         cp = this.getContentPane();
         cp.setLayout(null);
     }
+    
     public void setComponent(){
        this.setContentPane(new StartUI(this));//แสดง JPanel แรก และ ส่งค่า Frame หลัก ไปที่ JPanel แรก
 
-        
     }
-    
-    
     public void Finally(){
         cp.setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);

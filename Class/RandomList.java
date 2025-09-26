@@ -84,8 +84,20 @@ public class RandomList{
         return list;
     }
 
+    public int getIndexof(String name){
+        
+        for(int i = 0; i < randomlist.size() ; i++){
+            if(randomlist.get(i).equals(name)){
+                return i;
+            }
+        }
+        throw new RuntimeException("index of of bound");
+    }
+
     public String getRandom(){
         int random = this.random.nextInt(randomlist.size());
         return randomlist.get(random);
     }
+
+
 }

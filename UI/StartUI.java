@@ -26,7 +26,6 @@ public class StartUI extends JPanel implements ActionListener{
 
     }
 
-
     private void Initial(){
         this.setLayout(null);
      }
@@ -57,7 +56,6 @@ public class StartUI extends JPanel implements ActionListener{
         this.setSize(600, 800);
         this.setOpaque(false);//พื้นหลังโปร่งใส่
      }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -64,8 +64,6 @@ public class CatalogMethod {
         }
     }
 
-    
-
     public void removeCatalog(RandomList randomList,String catalogname){
         try{
             file = new File("./FoodData/CatalogData/"+catalogname+".csv");
@@ -97,8 +95,21 @@ public class CatalogMethod {
             bufferedWriter = new BufferedWriter(fileWriter);
             
                 for(int i = 0; i < randomList.getListLength(); i++){
-                    bufferedWriter.write(randomList.getName(i));
-                    bufferedWriter.write("\n");
+                    String name = randomList.getName(i);
+                    if(name.contains(",")){
+                        System.out.println(name.contains(","));
+                        int index = name.indexOf(",");
+                        if(index != 0 ){
+                            name = name.substring(0, index);
+                        } 
+                           bufferedWriter.write(name);
+                           bufferedWriter.write("\n");
+                    }
+                    else{
+                        bufferedWriter.write(name);
+                        bufferedWriter.write("\n");
+                    }
+                    
                 }
             InstallCatalogNameList();
              
@@ -106,8 +117,8 @@ public class CatalogMethod {
             System.out.println(e);
         }finally{
             try{
-                bufferedReader.close();
-                fileReader.close();
+                bufferedWriter.close();
+                fileWriter.close();
             }catch(Exception e){
                 System.out.println(e);
             }
