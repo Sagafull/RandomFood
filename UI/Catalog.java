@@ -13,13 +13,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import Class.RandomList;
 import FoodData.CatalogMethod;
 
-public class Catalog extends JDialog implements ActionListener {
+public class Catalog extends JDialog implements ActionListener,ListSelectionListener {
     private RandomList randomList;
     private RandomList tmp = new RandomList();
+    private RandomList tmp2 = new RandomList();
     private JList cataloglist,menulist;
     private JScrollPane scrollPane;
     private JLabel cat,catlist,menu;
@@ -60,11 +63,6 @@ public class Catalog extends JDialog implements ActionListener {
         menu.setFont(new Font("Verdana" ,Font.PLAIN, 20));
         this.add(menu);
 
-        menulist = new JList<>(defmodelmenu);
-        menulist.setFont(new Font("Verdana" ,Font.PLAIN, 20));
-        scrollPane.setViewportView(menulist);
-        this.add(menulist);
-
         add = new JButton("ADD");
         add.setFont(new Font("Verdana" ,Font.PLAIN, 20));
         add.addActionListener(this);
@@ -77,10 +75,18 @@ public class Catalog extends JDialog implements ActionListener {
 
         delete = new JButton("DELETE");
         delete.setFont(new Font("Verdana" ,Font.PLAIN, 20));
+        delete.addActionListener(this);
         this.add(delete);
+
+        menulist = new JList<>(defmodelmenu);
+        menulist.setFont(new Font("Verdana" ,Font.PLAIN, 20));
+        menulist.setFocusable(false);
+        scrollPane.setViewportView(menulist);
+        this.add(menulist);
         
         cataloglist = new JList<>(defmodelcat);
         cataloglist.setFont(new Font("Verdana" ,Font.PLAIN, 20));
+        cataloglist.addListSelectionListener(this);
         scrollPane.setViewportView(cataloglist);
         this.add(cataloglist);
     }
@@ -98,7 +104,7 @@ public class Catalog extends JDialog implements ActionListener {
         delete.setBounds(400, 500, 100, 100);
     }
     
-    private void resetJlist(){
+    public void resetJlist(){
         for(int i = 0; i < catalogmethod.getCatalogListLength(); i++){
             defmodelcat.addElement(catalogmethod.getCatalogName(i));
         }
@@ -130,12 +136,42 @@ public class Catalog extends JDialog implements ActionListener {
             catalogmethod.getCatalog(this.tmp, catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
 
             for(int i = 0; i < defmodelfoodlist.size(); i++){
-                if((defmodelfoodlist.get(i).equals(tmp.getName(i)))){
-                    defmodelfoodlist.removeElementAt(i);
+                System.out.println(defmodelfoodlist.get(i));
+            }
+            System.out.println(tmp.listToString());
+
+            for(int i = 0; i < tmp.getListLength(); i++){
+                for(int j = 0; j < defmodelfoodlist.size(); j++){
+                    if(defmodelfoodlist.get(j).equals(tmp.getName(i))){
+                        defmodelfoodlist.remove(j);
+                    }
                 }
             }
             tmp.clearList();
         }
 
+        if(e.getSource() == delete){
+            tmp2.clearList();
+            defmodelmenu.clear();
+            catalogmethod.deleteCatalog(catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
+            defmodelcat.removeElementAt(cataloglist.getSelectedIndex());
+            catalogmethod.InstallCatalogNameList();
+        }
     }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+      
+        if(cataloglist.getSelectedIndex() != -1){
+        catalogmethod.getCatalog(tmp2, catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
+        for(int i = 0; i < tmp2.getListLength(); i++){
+        defmodelmenu.addElement(tmp2.getName(i));
+        }
+        if(e.getValueIsAdjusting()){
+            defmodelmenu.clear();
+            tmp2.clearList();
+            catalogmethod.InstallCatalogNameList();
+        }
+    }
+}
 }

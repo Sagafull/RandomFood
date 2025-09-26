@@ -29,9 +29,12 @@ public class Class_test {
         RandomList randomlist = new RandomList();
         DataMethod dataMethod = new DataMethod();
         CatalogMethod catalogmethod = new CatalogMethod();
+        dataMethod.getPreset(randomlist, "JapaneseFood");
         dataMethod.getPreset(randomlist, "ThaiFood");
-        catalogmethod.createCatalog(randomlist, "hehe");
-        catalogmethod.createCatalog(randomlist, "eiei");
+        dataMethod.removePreset(randomlist, "JapaneseFood");
+        System.out.println(randomlist.listToString());
+        dataMethod.getPreset(randomlist, "ChineseFood");
+        System.out.println(randomlist.listToString());
 
      
 

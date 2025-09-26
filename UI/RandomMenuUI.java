@@ -1,7 +1,7 @@
 package UI;
 
-
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,20 +20,26 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Class.RandomList;
+import FoodData.CatalogMethod;
+import FoodData.DataMethod;
 
 public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     
     public RandomList randomlist = new RandomList();
     private DefaultListModel defmodel = new DefaultListModel<>(); 
+    private DataMethod dataMethod = new DataMethod();
+    private CatalogMethod catalogMethod = new CatalogMethod();
     private JLabel menu;
-    private JTextField input;
+    private JTextField input,einput;
     private JTextArea foodlistname;
     private JScrollPane scrollPane;
     private JList foodlist;
-    private JButton spin, spinall, add, delete, clear, catalog;
+    private JButton spin, add, delete, clear, catalog, save, esave,ok;
+    private JDialog eDialog;
     private PresetList presetList;
     private String foodname;
     private Dialogbox dialogbox;
+    private JDialog savedialog = new JDialog();
     private Catalog catalogUI;
     JFrame frame;
 
@@ -55,17 +61,31 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
 
     private void setComponent(){
         menu = new JLabel("MENU");
-        menu.setFont(new Font("Verdana", Font.PLAIN, 40));
+        menu.setFont(new Font("Tahoma", Font.PLAIN, 40));
         this.add(menu);
 
-        presetList = new PresetList();
+        presetList = new PresetList(randomlist,defmodel);
         this.add(presetList);
+        
+        save = new JButton("SAVE");
+        save.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        save.addActionListener(this);
+        this.add(save);
 
         catalog = new JButton("CATALOG");
-        catalog.setFont(new Font("Verdana", Font.PLAIN, 18));
+        catalog.setFont(new Font("Tahoma", Font.PLAIN, 18));
         catalog.addActionListener(this);
         this.add(catalog);
 
+        einput = new JTextField();
+        einput.setColumns(20);
+        esave = new JButton("Save");
+        eDialog = new JDialog();
+        eDialog.setLayout(new FlowLayout());
+        esave.addActionListener(this);
+        eDialog.add(einput);
+        eDialog.add(esave);
+        
         foodlist = new JList<String>(defmodel);
         foodlist.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         foodlist.setVisibleRowCount(-1);
@@ -79,26 +99,22 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         this.add(input);
 
         spin = new JButton("SPIN");
-        spin.setFont(new Font("Verdana", Font.PLAIN, 18));
+        spin.setFont(new Font("Tahoma", Font.PLAIN, 18));
         spin.addActionListener(this);
         this.add(spin);
         
-        spinall = new JButton("SPINALL");
-        spinall.setFont(new Font("Verdana", Font.PLAIN, 18));
-        this.add(spinall);
-
         add = new JButton("ADD");
-        add.setFont(new Font("Verdana", Font.PLAIN, 18));
+        add.setFont(new Font("Tahoma", Font.PLAIN, 18));
         add.addActionListener(this);
         this.add(add);
         
         delete = new JButton("DELETE");
-        delete.setFont(new Font("Verdana", Font.PLAIN, 10));
+        delete.setFont(new Font("Tahoma", Font.PLAIN, 10));
         delete.addActionListener(this);
         this.add(delete);
         
         clear = new JButton("CLEAR");
-        clear.setFont(new Font("Verdana", Font.PLAIN, 18));
+        clear.setFont(new Font("Tahoma", Font.PLAIN, 18));
         clear.addActionListener(this);
         this.add(clear);
 
@@ -121,6 +137,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     private void setComponentLocation(){
         menu.setBounds(230, 50, 200, 50);
         presetList.setBounds(40, 200, 400, 100);
+        save.setBounds(460, 150, 100, 50);
         catalog.setBounds(460, 220, 100, 50);
         foodlist.setBounds(40, 300, 400, 150);
         scrollPane.setBounds(40, 300, 400, 100);
@@ -128,16 +145,17 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         clear.setBounds(460, 300, 100, 50);
         delete.setBounds(460, 365, 100, 50);
         add.setBounds(460, 430, 100, 50);
-        spinall.setBounds(100, 550, 150, 150);
         spin.setBounds(300, 550, 150, 150);
+
+        eDialog.setSize(300, 100);
         
     }
 
     private void Finally(){
         this.setOpaque(false);//พื้นหลังโปร่งใส่
         this.setSize(600, 800);
+        eDialog.setLocationRelativeTo(null);
     }
-
 
      @Override
     public void actionPerformed(ActionEvent e) {
@@ -146,11 +164,21 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
             randomlist.addtoList(input.getText());
             addToJlist(input.getText());
             input.setText("");  
-    }
+        }
         if(e.getSource() == clear){
             randomlist.clearList();
             defmodel.clear();
             
+        }
+
+        if(e.getSource() == save){
+            eDialog.setVisible(true);
+            
+        }
+
+        if(e.getSource() == esave){
+            eDialog.setVisible(false);
+            catalogMethod.createCatalog(randomlist, einput.getText());
         }
 
         if(e.getSource() == delete){
@@ -162,7 +190,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
             catalogUI.setVisible(true);
         }
         if(e.getSource() == spin ){
-            dialogbox = new Dialogbox(randomlist.getRandom());
+            dialogbox = new Dialogbox(randomlist,defmodel,frame);
             dialogbox.setVisible(true);
             if(dialogbox.isActive()){
                 frame.setFocusable(false);

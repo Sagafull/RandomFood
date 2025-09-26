@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.DefaultListModel;
+
 import Class.RandomList;
 
 public class DataMethod {
@@ -16,43 +18,97 @@ public class DataMethod {
     private BufferedWriter bufferedWriter;
     private FileWriter fileWriter;
 
-    public void getPreset(RandomList randomList,String filename) throws IOException{
+    
+
+    public void getPreset(RandomList randomList,DefaultListModel dModel,String Listname){
         try {
-            file = new File("./FoodData/PresetData/"+filename+".csv");
+            file = new File("./FoodData/PresetData/Preset.csv");
             fileReader = new FileReader(file);
             bufferedReader = new BufferedReader(fileReader);
             String food = "";
             while((food = bufferedReader.readLine()) != null){
-                randomList.addtoList(food);
-                System.out.println(food);
+               if(food.equals(":"+Listname)){
+                while((food = bufferedReader.readLine()) != null && !(food.equals(":END"))){
+                    int index = food.indexOf(",");
+                    if(!(randomList.Listcontain(food.substring(0,index))) && (index != -1)){
+                        randomList.addtoList(food);
+                        dModel.addElement(food.substring(0,index));
+                    }
+                }
+               }
             }
         } catch (Exception e) {
             System.out.println(e);
         }finally{
-            bufferedReader.close();
-            fileReader.close();
+            try{
+                bufferedReader.close();
+                fileReader.close();
+            }catch(Exception e){
+                System.out.println(e);
+            }
         }
     }
 
-    public void removePreset(RandomList randomList,String filename) throws IOException{
-        try{
-            file = new File("./FoodData/PresetData/"+filename+".csv");
+    public void getPreset(RandomList randomList,String Listname){
+        try {
+            file = new File("./FoodData/PresetData/Preset.csv");
             fileReader = new FileReader(file);
             bufferedReader = new BufferedReader(fileReader);
             String food = "";
-            while ((food = bufferedReader.readLine()) != null) {
-                if(randomList.Listcontain(food)){
-                    randomList.removeFormList(food);
+            while((food = bufferedReader.readLine()) != null){
+               if(food.equals(":"+Listname)){
+                while((food = bufferedReader.readLine()) != null && !(food.equals(":END"))){
+                    int index = food.indexOf(",");
+                    if(!(randomList.Listcontain(food.substring(0,index))) && (index != -1)){
+                        randomList.addtoList(food);
+                    }
                 }
+               }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }finally{
-            bufferedReader.close();
-            fileReader.close();
+            try{
+                bufferedReader.close();
+                fileReader.close();
+            }catch(Exception e){
+                System.out.println(e);
+            }
         }
     }
 
-    //week 3 things
+    public void removePreset(RandomList randomList,DefaultListModel dModel,String Listname){
+        try {
+            file = new File("./FoodData/PresetData/Preset.csv");
+            fileReader = new FileReader(file);
+            bufferedReader = new BufferedReader(fileReader);
+            String food = "";
+            while((food = bufferedReader.readLine()) != null){
+               if(food.equals(":"+Listname)){
+                while((food = bufferedReader.readLine()) != null && !(food.equals(":END"))){
+                    int index = food.indexOf(",");
+                    System.out.println(randomList.getName(0)+" "+food);
+                    for(int i = 0 ; i < randomList.getListLength(); i++){
+                        if((randomList.getName(i).equals(food) && (index != -1))){
+                            randomList.removeFormList(food);
+                            dModel.removeElementAt(dModel.indexOf(food.substring(0, index)));
+                        }
+                    }
+                }
+               }
+              
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }finally{
+            try{
+                bufferedReader.close();
+                fileReader.close();
+            }catch(Exception e){
+                System.out.println(e);
+            }
+        }
+    }
+
     
 }
