@@ -1,5 +1,6 @@
 package UI;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,7 +44,7 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     }
 
     private void Initial(){
-        this.setLayout(null);
+        this.setLayout(new BorderLayout());
     }
 
     private void setComponent(){

@@ -1,23 +1,10 @@
 package UI;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.plaf.*;
 
 import Class.RandomList;
 import FoodData.CatalogMethod;
@@ -41,6 +28,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     private Dialogbox dialogbox;
     private JDialog savedialog = new JDialog();
     private Catalog catalogUI;
+    private JPanel menuPanel, spinPanel, gbuttonPanel, inputPanel, presetPanel, scrollPanel, centerPanel;
     JFrame frame;
 
     public RandomMenuUI(JFrame frame){
@@ -56,16 +44,17 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     }
 
     private void Initial(){
-        this.setLayout(null);
+        this.setLayout(new BorderLayout());
     }
 
     private void setComponent(){
-        menu = new JLabel("MENU");
-        menu.setFont(new Font("Tahoma", Font.PLAIN, 40));
-        this.add(menu);
+        menu = new JLabel("MENU", SwingConstants.CENTER);
+        menu.setFont(new Font("Tahoma", Font.BOLD, 50));
+        menu.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
+        
 
         presetList = new PresetList(randomlist,defmodel);
-        this.add(presetList);
+        
         
         save = new JButton("SAVE");
         save.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -92,16 +81,33 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         
         scrollPane = new JScrollPane(foodlist);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        this.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(400, 150));
         
-        input = new JTextField("foodname",20);
+        input = new JTextField("Food name...");
+        input.setPreferredSize(new Dimension(400, 50));
+        input.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (input.getText().equals("Food name...")) {
+                    input.setText("");
+                    input.setForeground(Color.BLACK); // กลับเป็นสีปกติเมื่อพิมพ์
+                }
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (input.getText().isEmpty()) {
+                    input.setText("Food name...");
+                    input.setForeground(Color.GRAY); // กลับเป็นสีจางเมื่อว่าง
+                }
+            }
+        });
         input.addKeyListener(this);
-        this.add(input);
 
         spin = new JButton("SPIN");
-        spin.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        spin.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        spin.setPreferredSize(new Dimension(160, 80));
         spin.addActionListener(this);
-        this.add(spin);
         
         add = new JButton("ADD");
         add.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -109,7 +115,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         this.add(add);
         
         delete = new JButton("DELETE");
-        delete.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        delete.setFont(new Font("Tahoma", Font.PLAIN, 18));
         delete.addActionListener(this);
         this.add(delete);
         
@@ -118,7 +124,71 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         clear.addActionListener(this);
         this.add(clear);
 
+        
+
     }
+
+    private void setComponentLocation(){
+
+        menuPanel = new JPanel();
+        menuPanel.add(menu);
+        this.add(menuPanel, BorderLayout.NORTH);
+        
+        foodlist.setBounds(40, 300, 400, 150);
+        
+        gbuttonPanel = new JPanel();
+        gbuttonPanel.setLayout(new GridLayout(5,0,0,20));
+        gbuttonPanel.setBackground(Color.BLUE);
+        gbuttonPanel.add(save);
+        gbuttonPanel.add(catalog);
+        gbuttonPanel.add(clear);
+        gbuttonPanel.add(delete);
+        gbuttonPanel.add(add);
+        gbuttonPanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 50, 30));
+        this.add(gbuttonPanel, BorderLayout.EAST);
+        
+        presetPanel = new JPanel();
+        presetPanel.setBackground(Color.YELLOW);
+        presetPanel.add(presetList);
+        
+        scrollPanel = new JPanel();
+        scrollPanel.setBackground(Color.ORANGE);
+        scrollPanel.add(scrollPane);
+        
+        inputPanel = new JPanel(new BorderLayout());
+        inputPanel.setBackground(Color.GREEN);
+        inputPanel.add(input);
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 50, 20));
+
+        centerPanel = new JPanel();
+        centerPanel.setBackground(Color.CYAN);
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.add(presetPanel);
+        centerPanel.add(scrollPanel);
+        centerPanel.add(inputPanel);
+        this.add(centerPanel, BorderLayout.CENTER);
+        
+
+        
+        spinPanel = new JPanel();
+        spinPanel.setBackground(Color.RED);
+        spinPanel.add(spin);
+        this.add(spinPanel, BorderLayout.SOUTH);
+        
+        eDialog.setSize(300, 100);
+
+        this.revalidate();
+        this.repaint();
+    }
+    
+    private void Finally(){
+        this.setOpaque(false);//พื้นหลังโปร่งใส่
+        this.setSize(600, 800);
+        eDialog.setLocationRelativeTo(null);
+        UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
+    }
+
+    
 
     private void addToJlist(String name){
         if(!(defmodel.contains(name)) && (!name.isBlank()) && !(name == null)){
@@ -134,28 +204,6 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         }
     }
      
-    private void setComponentLocation(){
-        menu.setBounds(230, 50, 200, 50);
-        presetList.setBounds(40, 200, 400, 100);
-        save.setBounds(460, 150, 100, 50);
-        catalog.setBounds(460, 220, 100, 50);
-        foodlist.setBounds(40, 300, 400, 150);
-        scrollPane.setBounds(40, 300, 400, 100);
-        input.setBounds(40, 430, 400, 50);
-        clear.setBounds(460, 300, 100, 50);
-        delete.setBounds(460, 365, 100, 50);
-        add.setBounds(460, 430, 100, 50);
-        spin.setBounds(300, 550, 150, 150);
-
-        eDialog.setSize(300, 100);
-        
-    }
-
-    private void Finally(){
-        this.setOpaque(false);//พื้นหลังโปร่งใส่
-        this.setSize(600, 800);
-        eDialog.setLocationRelativeTo(null);
-    }
 
      @Override
     public void actionPerformed(ActionEvent e) {
@@ -163,7 +211,8 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         if(e.getSource() == add){
             randomlist.addtoList(input.getText());
             addToJlist(input.getText());
-            input.setText("");  
+            input.setText("Food name...");
+            input.setForeground(Color.GRAY);
         }
         if(e.getSource() == clear){
             randomlist.clearList();
@@ -198,8 +247,8 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         }
     }
 
-     @Override
-     public void keyTyped(KeyEvent e) {
+    @Override
+    public void keyTyped(KeyEvent e) {
         if(input.getText().length() >= 20){
             e.consume();
         }

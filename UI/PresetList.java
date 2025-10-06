@@ -1,12 +1,9 @@
 package UI;
 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import Class.RandomList;
 import FoodData.DataMethod;
@@ -16,6 +13,7 @@ public class PresetList extends JPanel implements ActionListener {
     private JCheckBox foodpreset4,foodpreset5,foodpreset6;
     private JCheckBox foodpreset7,foodpreset8,foodpreset9;
     private JCheckBox GetAll;
+    private JPanel psPanel = new JPanel();
     private RandomList randomList;
     private DataMethod dataMethod = new DataMethod();
     private DefaultListModel defmodel;
@@ -23,48 +21,58 @@ public class PresetList extends JPanel implements ActionListener {
     public PresetList(RandomList randomList,DefaultListModel dListModel){
         Initial();
         setComponent();
+        setComponentLocation();
         Finally();
         this.randomList = randomList;
         this.defmodel = dListModel;
     }
     
-    private void Initial(){this.setLayout(new GridLayout(3, 3));}
+    private void Initial(){
+        psPanel.setLayout(new GridLayout(4, 3, 0, 20));
+    }
     
     private void setComponent(){
         foodpreset1 = new JCheckBox("ThaiFood");
         foodpreset1.addActionListener(this);
-        this.add(foodpreset1);
+        psPanel.add(foodpreset1);
 
         foodpreset2 = new JCheckBox("JapaneseFood");
         foodpreset2.addActionListener(this);
-        this.add(foodpreset2);
+        psPanel.add(foodpreset2);
 
         foodpreset3 = new JCheckBox("ChineseFood");
-        this.add(foodpreset3);
+        psPanel.add(foodpreset3);
 
         foodpreset4 = new JCheckBox("preset4");
-        this.add(foodpreset4);
+        psPanel.add(foodpreset4);
 
         foodpreset5 = new JCheckBox("preset5");
-        this.add(foodpreset5);
+        psPanel.add(foodpreset5);
 
         foodpreset6 = new JCheckBox("preset6");
-        this.add(foodpreset6);
+        psPanel.add(foodpreset6);
 
         foodpreset7 = new JCheckBox("preset7");
-        this.add(foodpreset7);
+        psPanel.add(foodpreset7);
 
         foodpreset8 = new JCheckBox("preset8");
-        this.add(foodpreset8);
+        psPanel.add(foodpreset8);
 
         foodpreset9 = new JCheckBox("preset9");
-        this.add(foodpreset9);
+        psPanel.add(foodpreset9);
 
         GetAll = new JCheckBox("GETALL");
         GetAll.addActionListener(this);
-        this.add(GetAll);
+        psPanel.add(GetAll);
+
+        this.add(psPanel);
 
     }
+
+    private void setComponentLocation(){
+        psPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100));
+    }
+
     private void Finally(){
         this.setOpaque(false);
     }
