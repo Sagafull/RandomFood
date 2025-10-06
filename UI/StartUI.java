@@ -1,19 +1,16 @@
 package UI;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.plaf.*;
 
 public class StartUI extends JPanel implements ActionListener{
     
     private JLabel welcomemsg;
     private JButton start;
     private JLabel choose;
+    private JPanel startPanel;
     JFrame frame;
     
     
@@ -27,34 +24,39 @@ public class StartUI extends JPanel implements ActionListener{
     }
 
     private void Initial(){
-        this.setLayout(null);
+        this.setLayout(new BorderLayout());
      }
      
     private void setComponent(){
-        welcomemsg = new JLabel("Random Food");
-        welcomemsg.setFont(new Font("Verdana", Font.PLAIN, 40));
-        this.add(welcomemsg);
+        welcomemsg = new JLabel("Random Food", SwingConstants.CENTER);
+        welcomemsg.setFont(new Font("Tahoma", Font.PLAIN, 70));
+        welcomemsg.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
 
         start = new JButton("START");
-        start.setFont(new Font("Verdana", Font.PLAIN, 40));
-        this.add(start);
+        start.setFont(new Font("Tahoma", Font.PLAIN, 40));
+        start.setPreferredSize(new Dimension(180, 80));
         start.addActionListener(this);
 
-        choose = new JLabel("Your Food Let's us Choose it for YOU");
-        choose.setFont(new Font("Verdana", Font.PLAIN, 20));
-        this.add(choose);
+        choose = new JLabel("Your Food Let's us Choose it for YOU !!", SwingConstants.CENTER);
+        choose.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        choose.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
     }
 
     private void setComponentLocation(){
-        welcomemsg.setBounds(140, 50, 300, 50);
-        start.setBounds(200, 300, 200, 100);
-        choose.setBounds(120, 450, 400, 50);
+        this.add(welcomemsg, BorderLayout.NORTH);
 
+        startPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        startPanel.add(start);
+        startPanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 300, 0));
+        this.add(startPanel, BorderLayout.CENTER);
+
+        this.add(choose, BorderLayout.SOUTH);
     }
     
     private void Finally(){
         this.setSize(600, 800);
         this.setOpaque(false);//พื้นหลังโปร่งใส่
+        UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
      }
 
     @Override
