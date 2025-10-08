@@ -7,10 +7,9 @@ import javax.swing.plaf.*;
 
 public class StartUI extends JPanel implements ActionListener{
     
-    private JLabel welcomemsg;
+    private JLabel welcomemsg, choose;
     private JButton start;
-    private JLabel choose;
-    private JPanel startPanel;
+    private JPanel startPanel, welcomePanel, choosePanel;
     JFrame frame;
     
     
@@ -24,33 +23,39 @@ public class StartUI extends JPanel implements ActionListener{
     }
 
     private void Initial(){
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
      }
      
     private void setComponent(){
         welcomemsg = new JLabel("Random Food", SwingConstants.CENTER);
         welcomemsg.setFont(new Font("Tahoma", Font.PLAIN, 70));
-        welcomemsg.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
-
+        
         start = new JButton("START");
         start.setFont(new Font("Tahoma", Font.PLAIN, 40));
-        start.setPreferredSize(new Dimension(180, 80));
+        start.setPreferredSize(new Dimension(160, 80));
         start.addActionListener(this);
-
+        
         choose = new JLabel("Your Food Let's us Choose it for YOU !!", SwingConstants.CENTER);
         choose.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        choose.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
     }
-
+    
     private void setComponentLocation(){
-        this.add(welcomemsg, BorderLayout.NORTH);
-
+        
+        welcomePanel = new JPanel();
+        welcomePanel.setPreferredSize(new Dimension(600, 500));
+        welcomePanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+        welcomePanel.add(welcomemsg);
+        this.add(welcomePanel);
+        
         startPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        startPanel.setPreferredSize(new Dimension(600,200));
         startPanel.add(start);
-        startPanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 300, 0));
-        this.add(startPanel, BorderLayout.CENTER);
+        this.add(startPanel);
 
-        this.add(choose, BorderLayout.SOUTH);
+        choosePanel = new JPanel();
+        choosePanel.setPreferredSize(new Dimension(600, 100));
+        choosePanel.add(choose);
+        this.add(choosePanel);
     }
     
     private void Finally(){

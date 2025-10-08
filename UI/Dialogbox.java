@@ -1,17 +1,10 @@
 package UI;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.border.Border;
+import javax.swing.*;
+import javax.swing.border.*;
 
 import Class.RandomList;
 
@@ -23,11 +16,9 @@ public class Dialogbox extends JDialog implements ActionListener {
     private JFrame frame;
     private RandomList randomList;
     private DefaultListModel defmodel;
-
-    private JLabel keepfood;
-    private JButton keep,delete;
+    private JPanel gbuttonPanel, frandomPanel;
     
-    public Dialogbox(RandomList randomList,DefaultListModel defmodel, JFrame frame){
+    public Dialogbox(RandomList randomList, DefaultListModel defmodel, JFrame frame){
         this.randomList = randomList;
         randomname = randomList.getRandom();
         this.defmodel = defmodel;
@@ -37,65 +28,47 @@ public class Dialogbox extends JDialog implements ActionListener {
         Finally();
         this.frame = frame;
         
-        
-        
     }
 
     private void Initial(){
-        this.setLayout(null);
+        this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
     }
 
     private void setComponent(){
-        randomfood = new JLabel(randomname);
-        randomfood.setFont(new Font("Verdana" ,Font.PLAIN, 20));
-        this.add(randomfood);
+        randomfood = new JLabel(randomname, SwingConstants.CENTER);
+        randomfood.setFont(new Font("Tahoma" ,Font.PLAIN, 40));
 
         confirm = new JButton("Confrim");
-        confirm.setSize(100, 100);
+        confirm.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        confirm.setPreferredSize(new Dimension(150, 60));
         confirm.addActionListener(this);
-        this.add(confirm);
 
         tryagain = new JButton("Try Again");
-        tryagain.setSize(100, 100);
+        tryagain.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        tryagain.setPreferredSize(new Dimension(150, 60));
         tryagain.addActionListener(this);
-        this.add(tryagain);
-
-        keepfood = new JLabel("Keep: " + randomname +" ?");
-        keepfood.setVisible(false);
-        this.add(keepfood);
         
-        
-        keep = new JButton("KEEP");
-        keep.setVisible(false);
-        keep.addActionListener(this);
-        this.add(keep);
-        
-        
-
-        delete = new JButton("DELETE");
-        delete.addActionListener(this);
-        delete.setVisible(false);
-        this.add(delete);
     }
     private void setComponentLocation(){
-        randomfood.setBounds(210, 30, 200,100 );
-        
 
-        confirm.setBounds(100, 150, 100, 50);
-        
-        tryagain.setBounds(300, 150, 100, 50);
+        frandomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 70));
+        frandomPanel.setPreferredSize(new Dimension(600, 200));
+        frandomPanel.add(randomfood);
+        this.add(frandomPanel);
 
-        keepfood.setBounds(210, 30, 150, 50);
-        
-        keep.setBounds(100, 150, 100, 50);
-
-        delete.setBounds(300, 150, 100, 50);
+        gbuttonPanel = new JPanel();
+        gbuttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
+        gbuttonPanel.setPreferredSize(new Dimension(600, 200));
+        gbuttonPanel.add(confirm);
+        gbuttonPanel.add(tryagain); 
+        this.add(gbuttonPanel);
 
     }
     private void Finally(){
-        this.setSize(560,360);
+        this.setSize(600,400);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     @Override
@@ -107,48 +80,8 @@ public class Dialogbox extends JDialog implements ActionListener {
         }
        
         if(e.getSource() == tryagain){
-            keepfood.setVisible(true);
-            keep.setVisible(true);
-            delete.setVisible(true);
-
-            randomfood.setVisible(false);
-            tryagain.setVisible(false);
-            confirm.setVisible(false);
-        }
-
-        if(e.getSource() == keep){
-            keepfood.setVisible(false);
-            keep.setVisible(false);
-            delete.setVisible(false);
-
-            randomname = randomList.getRandom();
-            randomfood.setText(randomname);
-            keepfood.setText("Keep: "+randomname+"?");
-
-            randomfood.setVisible(true);
-            tryagain.setVisible(true);
-            confirm.setVisible(true);
-        }
-
-        if(e.getSource() == delete){
-            keepfood.setVisible(false);
-            keep.setVisible(false);
-            delete.setVisible(false);
-
-            for(int i = 0; i < randomList.getListLength(); i++){
-                if(randomList.getName(i).equals(randomname)){
-                    randomList.removeFormList(i);
-                    defmodel.removeElementAt(i);
-                }
-            }
-
-            randomname = randomList.getRandom();
-            randomfood.setText(randomname);
-            keepfood.setText("Keep: "+randomname+"?");
-
-            randomfood.setVisible(true);
-            tryagain.setVisible(true);
-            confirm.setVisible(true);
+            new Keepbox(randomname, randomList, defmodel, frame).setVisible(true);
+            this.setVisible(false);
         }
 
         

@@ -17,7 +17,7 @@ public class Frame extends JFrame {
 
     public void Initial() {
         cp = this.getContentPane();
-        cp.setLayout(new BorderLayout());
+        cp.setLayout(null);
     }
 
     public void setComponent() {

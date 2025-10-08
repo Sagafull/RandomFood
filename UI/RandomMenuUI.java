@@ -28,7 +28,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     private Dialogbox dialogbox;
     private JDialog savedialog = new JDialog();
     private Catalog catalogUI;
-    private JPanel menuPanel, spinPanel, gbuttonPanel, inputPanel, presetPanel, scrollPanel, centerPanel;
+    private JPanel topPanel, bottomPanel, rightPanel, inputPanel, presetPanel, scrollPanel, centerPanel, leftPanel;
     JFrame frame;
 
     public RandomMenuUI(JFrame frame){
@@ -44,27 +44,23 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     }
 
     private void Initial(){
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
     private void setComponent(){
         menu = new JLabel("MENU", SwingConstants.CENTER);
-        menu.setFont(new Font("Tahoma", Font.BOLD, 50));
-        menu.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
+        menu.setFont(new Font("Tahoma", Font.PLAIN, 80));
+        menu.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         
-
         presetList = new PresetList(randomlist,defmodel);
-        
         
         save = new JButton("SAVE");
         save.setFont(new Font("Tahoma", Font.PLAIN, 18));
         save.addActionListener(this);
-        this.add(save);
 
         catalog = new JButton("CATALOG");
         catalog.setFont(new Font("Tahoma", Font.PLAIN, 18));
         catalog.addActionListener(this);
-        this.add(catalog);
 
         einput = new JTextField();
         einput.setColumns(20);
@@ -112,7 +108,6 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         add = new JButton("ADD");
         add.setFont(new Font("Tahoma", Font.PLAIN, 18));
         add.addActionListener(this);
-        this.add(add);
         
         delete = new JButton("DELETE");
         delete.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -122,58 +117,70 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         clear = new JButton("CLEAR");
         clear.setFont(new Font("Tahoma", Font.PLAIN, 18));
         clear.addActionListener(this);
-        this.add(clear);
-
-        
 
     }
 
     private void setComponentLocation(){
 
-        menuPanel = new JPanel();
-        menuPanel.add(menu);
-        this.add(menuPanel, BorderLayout.NORTH);
+        topPanel = new JPanel();
+        topPanel.setPreferredSize(new Dimension(600, 120));
+        topPanel.add(menu);
+        this.add(topPanel);
         
         foodlist.setBounds(40, 300, 400, 150);
         
-        gbuttonPanel = new JPanel();
-        gbuttonPanel.setLayout(new GridLayout(5,0,0,20));
-        gbuttonPanel.setBackground(Color.BLUE);
-        gbuttonPanel.add(save);
-        gbuttonPanel.add(catalog);
-        gbuttonPanel.add(clear);
-        gbuttonPanel.add(delete);
-        gbuttonPanel.add(add);
-        gbuttonPanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 50, 30));
-        this.add(gbuttonPanel, BorderLayout.EAST);
-        
-        presetPanel = new JPanel();
-        presetPanel.setBackground(Color.YELLOW);
-        presetPanel.add(presetList);
-        
-        scrollPanel = new JPanel();
-        scrollPanel.setBackground(Color.ORANGE);
-        scrollPanel.add(scrollPane);
-        
-        inputPanel = new JPanel(new BorderLayout());
-        inputPanel.setBackground(Color.GREEN);
-        inputPanel.add(input);
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 50, 20));
-
         centerPanel = new JPanel();
-        centerPanel.setBackground(Color.CYAN);
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.add(presetPanel);
-        centerPanel.add(scrollPanel);
-        centerPanel.add(inputPanel);
-        this.add(centerPanel, BorderLayout.CENTER);
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+        centerPanel.setPreferredSize(new Dimension(600, 500));
+        // โค้ดใน centerPanel
+        {
+            // leftPanel
+            {
+                presetPanel = new JPanel();
+                presetPanel.setPreferredSize(new Dimension(440, 170));
+                presetPanel.add(presetList);
+                
+                scrollPanel = new JPanel();
+                scrollPanel.setPreferredSize(new Dimension(440, 170));
+                scrollPanel.add(scrollPane);
+                    
+                inputPanel = new JPanel();
+                inputPanel.setPreferredSize(new Dimension(440, 160));
+                inputPanel.setBorder(BorderFactory.createEmptyBorder(45, 0, 0, 0));
+                inputPanel.add(input);
+
+                leftPanel = new JPanel();
+                leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+                leftPanel.setPreferredSize(new Dimension(450, 500));
+                leftPanel.add(presetPanel);
+                leftPanel.add(scrollPanel);
+                leftPanel.add(inputPanel);
+                leftPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+
+            }
+            // rightPanel
+            {
+                rightPanel = new JPanel();
+                rightPanel.setLayout(new GridLayout(5,0,0,20));
+                rightPanel.setPreferredSize(new Dimension(150, 500));;
+                rightPanel.add(save);
+                rightPanel.add(catalog);
+                rightPanel.add(clear);
+                rightPanel.add(delete);
+                rightPanel.add(add);
+                rightPanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 30, 40));
+            }
+        }
+        centerPanel.add(leftPanel);
+        centerPanel.add(rightPanel);
+        this.add(centerPanel);
         
 
         
-        spinPanel = new JPanel();
-        spinPanel.setBackground(Color.RED);
-        spinPanel.add(spin);
-        this.add(spinPanel, BorderLayout.SOUTH);
+        bottomPanel = new JPanel();
+        bottomPanel.setPreferredSize(new Dimension(600, 180));
+        bottomPanel.add(spin);
+        this.add(bottomPanel);
         
         eDialog.setSize(300, 100);
 
@@ -191,7 +198,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     
 
     private void addToJlist(String name){
-        if(!(defmodel.contains(name)) && (!name.isBlank()) && !(name == null)){
+        if(!(defmodel.contains(name)) && (!name.isBlank()) && !(name == null) && !(name.equals("Food name..."))){
             defmodel.addElement(name);
         }
     }

@@ -18,7 +18,7 @@ public class PresetList extends JPanel implements ActionListener {
     private DataMethod dataMethod = new DataMethod();
     private DefaultListModel defmodel;
 
-    public PresetList(RandomList randomList,DefaultListModel dListModel){
+    public PresetList(RandomList randomList, DefaultListModel dListModel){
         Initial();
         setComponent();
         setComponentLocation();
@@ -28,40 +28,50 @@ public class PresetList extends JPanel implements ActionListener {
     }
     
     private void Initial(){
-        psPanel.setLayout(new GridLayout(4, 3, 0, 20));
+        psPanel.setLayout(new GridLayout(4, 3, 10, 10));
     }
     
     private void setComponent(){
         foodpreset1 = new JCheckBox("ThaiFood");
+        foodpreset1.setFont(new Font("Tahoma", Font.PLAIN, 14));
         foodpreset1.addActionListener(this);
         psPanel.add(foodpreset1);
 
         foodpreset2 = new JCheckBox("JapaneseFood");
+        foodpreset2.setFont(new Font("Tahoma", Font.PLAIN, 14));
         foodpreset2.addActionListener(this);
         psPanel.add(foodpreset2);
 
         foodpreset3 = new JCheckBox("ChineseFood");
+        foodpreset3.setFont(new Font("Tahoma", Font.PLAIN, 14));
         psPanel.add(foodpreset3);
 
         foodpreset4 = new JCheckBox("preset4");
+        foodpreset4.setFont(new Font("Tahoma", Font.PLAIN, 14));
         psPanel.add(foodpreset4);
 
         foodpreset5 = new JCheckBox("preset5");
+        foodpreset5.setFont(new Font("Tahoma", Font.PLAIN, 14));
         psPanel.add(foodpreset5);
 
         foodpreset6 = new JCheckBox("preset6");
+        foodpreset6.setFont(new Font("Tahoma", Font.PLAIN, 14));
         psPanel.add(foodpreset6);
 
         foodpreset7 = new JCheckBox("preset7");
+        foodpreset7.setFont(new Font("Tahoma", Font.PLAIN, 14));
         psPanel.add(foodpreset7);
 
         foodpreset8 = new JCheckBox("preset8");
+        foodpreset8.setFont(new Font("Tahoma", Font.PLAIN, 14));
         psPanel.add(foodpreset8);
 
         foodpreset9 = new JCheckBox("preset9");
+        foodpreset9.setFont(new Font("Tahoma", Font.PLAIN, 14));
         psPanel.add(foodpreset9);
 
-        GetAll = new JCheckBox("GETALL");
+        GetAll = new JCheckBox("All");
+        GetAll.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GetAll.addActionListener(this);
         psPanel.add(GetAll);
 
@@ -70,7 +80,7 @@ public class PresetList extends JPanel implements ActionListener {
     }
 
     private void setComponentLocation(){
-        psPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100));
+        psPanel.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 40));
     }
 
     private void Finally(){
