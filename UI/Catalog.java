@@ -1,21 +1,13 @@
 package UI;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.Flow;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.*;
+import javax.swing.event.*;
 
 import Class.RandomList;
 import FoodData.CatalogMethod;
@@ -29,9 +21,11 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     private JLabel cat,catlist,menu;
     private JButton delete,add,remove,rename;
     private CatalogMethod catalogmethod = new CatalogMethod();
+    private JScrollPane scrollPanecat,scrollPanemenu;
     private DefaultListModel defmodelcat = new DefaultListModel<>();
     private DefaultListModel defmodelmenu = new DefaultListModel<>();
     private DefaultListModel defmodelfoodlist;
+    private JPanel topPanel, centerPanel, leftPanel, rightPanel, bottomPanel;
 
     public Catalog(RandomList randomList, DefaultListModel defmodelfoodlist){
         Initial();
@@ -44,65 +38,97 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     }
 
     private void Initial(){
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
     }
 
     private void setComponent(){
 
         scrollPane = new JScrollPane();
-        this.add(scrollPane);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setPreferredSize(new Dimension(500, 400));
         
-        cat = new JLabel("Catalog");
-        cat.setFont(new Font("Verdana" ,Font.PLAIN, 40));
-        this.add(cat);
-
+        cat = new JLabel("Catalog", SwingConstants.CENTER);
+        cat.setFont(new Font("Tahoma" ,Font.PLAIN, 60));
+        cat.setForeground(Color.WHITE);
+        
         catlist = new JLabel("Catalog List");
-        catlist.setFont(new Font("Verdana" ,Font.PLAIN, 20));
-        this.add(catlist);
+        catlist.setFont(new Font("Tahoma" ,Font.PLAIN, 25));
+        catlist.setForeground(Color.WHITE);
 
         menu = new JLabel("Menu List");
-        menu.setFont(new Font("Verdana" ,Font.PLAIN, 20));
-        this.add(menu);
+        menu.setFont(new Font("Tahoma" ,Font.PLAIN, 25));
+        menu.setForeground(Color.WHITE);
 
         add = new JButton("ADD");
-        add.setFont(new Font("Verdana" ,Font.PLAIN, 20));
+        add.setFont(new Font("Tahoma" ,Font.PLAIN, 20));
+        add.setPreferredSize(new Dimension(120, 60));
         add.addActionListener(this);
-        this.add(add);
 
         remove = new JButton("Remove");
-        remove.setFont(new Font("Verdana" ,Font.PLAIN, 20));
+        remove.setFont(new Font("Tahoma" ,Font.PLAIN, 20));
+        remove.setPreferredSize(new Dimension(120, 60));
         remove.addActionListener(this);
-        this.add(remove);
 
         delete = new JButton("DELETE");
-        delete.setFont(new Font("Verdana" ,Font.PLAIN, 20));
+        delete.setFont(new Font("Tahoma" ,Font.PLAIN, 20));
+        delete.setPreferredSize(new Dimension(120, 60));
         delete.addActionListener(this);
-        this.add(delete);
 
+        
         menulist = new JList<>(defmodelmenu);
-        menulist.setFont(new Font("Verdana" ,Font.PLAIN, 20));
+        menulist.setFont(new Font("Tahoma" ,Font.PLAIN, 20));
         menulist.setFocusable(false);
-        scrollPane.setViewportView(menulist);
-        this.add(menulist);
+        scrollPanemenu = new JScrollPane(menulist);
+        scrollPanemenu.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
         
         cataloglist = new JList<>(defmodelcat);
-        cataloglist.setFont(new Font("Verdana" ,Font.PLAIN, 20));
+        cataloglist.setFont(new Font("Tahoma" ,Font.PLAIN, 20));
         cataloglist.addListSelectionListener(this);
-        scrollPane.setViewportView(cataloglist);
-        this.add(cataloglist);
+        scrollPanecat = new JScrollPane(cataloglist);
+        scrollPanecat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    
     }
 
     private void setComponentLocation(){
-        cat.setBounds(100,20,200,50); //Catalog
-        menu.setBounds(300, 110, 100, 50); //MenuList
-        catlist.setBounds(30, 110, 150, 50); //CatalogList
-        
-        cataloglist.setBounds(30, 150, 200, 300);
-        menulist.setBounds(300,150,200,300);
 
-        add.setBounds(20, 500, 100, 100);
-        remove.setBounds(200, 500, 100, 100);
-        delete.setBounds(400, 500, 100, 100);
+        topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 10));
+        topPanel.setPreferredSize(new Dimension(600, 100));
+        topPanel.add(cat);
+        this.add(topPanel);
+
+        centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+        centerPanel.setPreferredSize(new Dimension(600, 550));
+        // leftPanel, rightPanel ใน centerPanel
+        {
+        leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setPreferredSize(new Dimension(300, 500));
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,5));
+        leftPanel.add(catlist);
+        leftPanel.add(Box.createVerticalStrut(15));
+        leftPanel.add(scrollPanecat);
+
+        rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.setPreferredSize(new Dimension(300, 500));
+        rightPanel.setBorder(BorderFactory.createEmptyBorder(10,5,10,10));
+        rightPanel.add(menu);
+        rightPanel.add(Box.createVerticalStrut(15));
+        rightPanel.add(scrollPanemenu);
+        }
+        centerPanel.add(leftPanel);
+        centerPanel.add(rightPanel);
+        this.add(centerPanel);
+
+        bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 60, 30));
+        bottomPanel.setPreferredSize(new Dimension(600, 150));
+        bottomPanel.add(add);
+        bottomPanel.add(remove);
+        bottomPanel.add(delete);
+        this.add(bottomPanel);
+        
     }
     
     public void resetJlist(){
@@ -112,9 +138,15 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     }
 
     private void Finally(){
-        this.setSize(550, 670);
+        this.setSize(600, 800);
         this.setLocationRelativeTo(null);
-        
+        this.getContentPane().setBackground(Color.BLACK);
+        topPanel.setOpaque(false);
+        centerPanel.setOpaque(false);
+        leftPanel.setOpaque(false);
+        rightPanel.setOpaque(false);
+        bottomPanel.setOpaque(false);
+        //topPanel, centerPanel, leftPanel, rightPanel, bottomPanel;
     }
 
     @Override

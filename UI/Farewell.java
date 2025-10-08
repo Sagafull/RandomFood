@@ -1,17 +1,14 @@
 package UI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class Farewell extends JDialog implements ActionListener {
     private JLabel farewell;
     private JButton ok;
     private JFrame frame;
+    private JPanel wellPanel, okbuttonPanel;
     
     public Farewell(JFrame frame){
         Initial();
@@ -22,25 +19,33 @@ public class Farewell extends JDialog implements ActionListener {
     }
 
     private void Initial(){
-        this.setLayout(null);
+        this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
     }
     
     private void setComponent(){
-        farewell = new JLabel("Goodluck");
-        this.add(farewell);
+        farewell = new JLabel("Enjoy Eating !!!", SwingConstants.CENTER);
+        farewell.setFont(new Font("Tahoma", Font.PLAIN, 40));
 
-        ok = new JButton("OK");
+        ok = new JButton("->");
+        ok.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        ok.setPreferredSize(new Dimension(50, 50));
         ok.addActionListener(this);
-        this.add(ok);
     }
 
     private void setComponentLocation(){
-        farewell.setBounds(150, 30, 200, 50);
-        ok.setBounds(20, 100, 50, 50);
+        wellPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 140));
+        wellPanel.setPreferredSize(new Dimension(600, 200));
+        wellPanel.add(farewell);
+        this.add(wellPanel);
+
+        okbuttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 3, 1));
+        okbuttonPanel.setPreferredSize(new Dimension(600, 200));
+        okbuttonPanel.add(ok);
+        this.add(okbuttonPanel);
     }
 
     private void Finally(){
-        this.setSize(570, 370);
+        this.setSize(600, 400);
         this.setLocationRelativeTo(null);
 
     }
