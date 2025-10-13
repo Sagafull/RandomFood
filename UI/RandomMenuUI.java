@@ -16,7 +16,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     private DefaultListModel defmodel = new DefaultListModel<>(); 
     private DataMethod dataMethod = new DataMethod();
     private CatalogMethod catalogMethod = new CatalogMethod();
-    private JLabel menu,warnningempthy;
+    private JLabel menu,scatalog;
     private JTextField input,einput;
     private JTextArea foodlistname;
     private JScrollPane scrollPane;
@@ -65,24 +65,32 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         catalog.setFont(new Font("Tahoma", Font.BOLD, 16));
         catalog.addActionListener(this);
 
+
+        scatalog = new JLabel("Catalog Name");
         einput = new JTextField();
         einput.setColumns(20);
+        einput.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        einput.addKeyListener(this);
         esave = new JButton("Save");
         eDialog = new JDialog();
         eDialog.setLayout(new FlowLayout());
         esave.addActionListener(this);
+        eDialog.add(scatalog);
         eDialog.add(einput);
         eDialog.add(esave);
         
         foodlist = new JList<String>(defmodel);
+        foodlist.setFont(new Font("Tahoma", Font.PLAIN, 16));
         foodlist.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         foodlist.setVisibleRowCount(-1);
         
         scrollPane = new JScrollPane(foodlist);
+        scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 16));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(400, 150));
         
         input = new JTextField("Food name...");
+        input.setFont(new Font("Tahoma", Font.PLAIN, 16));
         input.setPreferredSize(new Dimension(400, 50));
         input.addFocusListener(new FocusListener() {
             @Override
@@ -130,7 +138,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     }
 
     private void setComponentLocation(){
-
+        eDialog.getContentPane().setSize(300, 200);
         topPanel = new JPanel();
         topPanel.setPreferredSize(new Dimension(600, 120));
         topPanel.add(menu);
@@ -213,6 +221,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         //topPanel, bottomPanel, rightPanel, inputPanel, presetPanel, scrollPanel, centerPanel, leftPanel;
         this.setSize(600, 800);
         eDialog.setLocationRelativeTo(null);
+        eDialog.setResizable(false);
         UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
     }
 
@@ -257,8 +266,13 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         }
 
         if(e.getSource() == esave){
-            eDialog.setVisible(false);
-            catalogMethod.createCatalog(randomlist, einput.getText());
+            
+            if(!catalogMethod.catalogContain(einput.getText()) && !randomlist.isEmpty()){
+                catalogMethod.createCatalog(randomlist, einput.getText());
+                einput.setText("");
+                eDialog.setVisible(false);
+            }
+            
         }
 
         if(e.getSource() == delete){
@@ -275,20 +289,35 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
             if(dialogbox.isActive()){
                 frame.setFocusable(false);
             }
-            if(randomlist.isEmpty()){
-                warnningempthy.setVisible(true);
-            }
-            else{
-                warnningempthy.setVisible(false);
-            }
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if(input.getText().length() >= 20){
+        
+        if(e.getSource() == input){
+            if(input.getText().length() >= 20){
             e.consume();
         }
+
+        if(e.getKeyChar() == ' ' || !Character.isAlphabetic(e.getKeyChar())){
+            e.consume();
+        }
+
+        }
+
+        if(e.getSource() == einput){
+            if(einput.getText().length() >= 20){
+            e.consume();
+            }
+            if(e.getKeyChar() == ' ' || !Character.isLetterOrDigit(e.getKeyChar())){
+                e.consume();
+            }
+
+        }
+        
+        
+        
      }
 
      @Override

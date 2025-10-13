@@ -79,6 +79,7 @@ public class Dialogbox extends JDialog implements ActionListener {
         this.setVisible(true);
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -92,7 +93,7 @@ public class Dialogbox extends JDialog implements ActionListener {
             this.setVisible(false);
         }
 
-        
+
     }
     
 }

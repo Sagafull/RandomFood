@@ -16,6 +16,7 @@ public class Keepbox extends JDialog implements ActionListener {
     private DefaultListModel defmodel;
     private JPanel keepfoodPanel, lbuttonPanel;
     private CustomeButton keep,delete;
+    private Dialogbox dialogbox;
     
     public Keepbox(String randomname, RandomList randomList, DefaultListModel defmodel, JFrame frame){
         this.randomname = randomname;
@@ -98,8 +99,15 @@ public class Keepbox extends JDialog implements ActionListener {
                     defmodel.removeElementAt(i);
                 }
             }
+            if(!randomList.isEmpty()){
+                new Dialogbox(randomList, defmodel, frame).setVisible(true);
+            }
+            else{
+                new Farewell(frame).setVisible(true);
+            }
+            
+            
 
-            new Dialogbox(randomList, defmodel, frame).setVisible(true);
             this.setVisible(false);
         }
 

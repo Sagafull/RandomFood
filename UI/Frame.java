@@ -49,9 +49,6 @@ public class Frame extends JFrame {
              java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
          }
      }
-
-     
-
 }
 class paintFrame extends JPanel{
 

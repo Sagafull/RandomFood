@@ -39,11 +39,22 @@ public class CatalogMethod {
         return catalogname.get(index);
     }
 
+    public String getCatalogName(String name){
+        String Name = "";
+        for(int i = 0; i < getCatalogListLength() ; i++){
+            if(name.equals(getCatalogName(i))){
+                Name = name;
+            }
+        }
+        return Name;
+    }
+
     public int getCatalogListLength(){
         return catalogname.size();
     }
 
     public void getCatalog(RandomList randomList,String catalogname){
+        
         try {
             file = new File("./FoodData/CatalogData/"+catalogname+".csv");
             fileReader = new FileReader(file);
@@ -88,7 +99,9 @@ public class CatalogMethod {
     }
 
     public void createCatalog(RandomList randomList, String catalogname){
+        
         try{
+            InstallCatalogNameList();
             file = new File("./FoodData/CatalogData/"+catalogname+".csv");
             file.createNewFile();
             fileWriter = new FileWriter(file);
@@ -127,17 +140,17 @@ public class CatalogMethod {
 
     public void deleteCatalog(String catalogname){
         try{
-            if(catalogExits(catalogname)){
+            if(catalogContain(catalogname)){
                 file = new File("./FoodData/CatalogData/"+catalogname+".csv");
                 file.delete();
-                InstallCatalogNameList();
             }
         }catch(Exception e){
             System.out.println(e);
         }
+        InstallCatalogNameList();
     }
 
-    public boolean catalogExits(String catalogname){
+    public boolean catalogContain(String catalogname){
         boolean check = false;
         file = new File("./FoodData/CatalogData/");
         File allfile[] = file.listFiles();
