@@ -10,7 +10,6 @@ public class StartUI extends JPanel implements ActionListener{
     private JLabel welcomemsg, choose, image;
     private JButton start;
     private JPanel startPanel, welcomePanel, choosePanel, imagePanel;
-    private ImageIcon icon, imageIcon;
     JFrame frame;
     
     
@@ -32,10 +31,8 @@ public class StartUI extends JPanel implements ActionListener{
         welcomemsg.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 70));
         welcomemsg.setForeground(Color.decode("#98623C"));
         
-        icon = new ImageIcon("UI/image/hungryCat.png");
-        Image scaIedImage = icon.getImage().getScaledInstance(400, 295, Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(scaIedImage);
-        image = new JLabel(imageIcon);
+        image = new JLabel();
+        image.setIcon(new ImageIcon(new ImageIcon("UI/image/hungryCat.png").getImage().getScaledInstance(400, 295, Image.SCALE_SMOOTH)));
 
         
         start = new JButton("START");

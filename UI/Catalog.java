@@ -75,9 +75,9 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
 
         delete = new JButton("DELETE");
         delete.setFont(new Font("Arial Rounded MT Bold" ,Font.BOLD, 20));
+        delete.setPreferredSize(new Dimension(120, 60));
         delete.setBackground(Color.decode("#FF4040"));
         delete.setBorder(BorderFactory.createLineBorder(Color.decode("#8B0000"), 4));
-        delete.setPreferredSize(new Dimension(120, 60));
         delete.addActionListener(this);
 
         
@@ -144,7 +144,6 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     }
 
     private void Finally(){
-        this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
         this.setSize(600, 800);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#FAE5C7"));
@@ -220,4 +219,3 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     }
 }
 }
-

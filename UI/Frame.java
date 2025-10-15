@@ -18,7 +18,7 @@ public class Frame extends JFrame {
 
     public void Initial() {
         cp = this.getContentPane();
-        cp.setLayout(null);
+        cp.setLayout(new BoxLayout(cp, BoxLayout.X_AXIS));
         
     }
 
