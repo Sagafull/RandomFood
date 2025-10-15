@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.plaf.*;
 
 import Class.RandomList;
@@ -16,12 +17,13 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     private DefaultListModel defmodel = new DefaultListModel<>(); 
     private DataMethod dataMethod = new DataMethod();
     private CatalogMethod catalogMethod = new CatalogMethod();
-    private JLabel menu;
+    private JLabel menu,scatalog;
     private JTextField input,einput;
     private JTextArea foodlistname;
     private JScrollPane scrollPane;
     private JList foodlist;
-    private JButton spin, add, delete, clear, catalog, save, esave,ok;
+    private JButton  add, delete, clear, catalog, save, esave,ok;
+    private JButton spin;
     private JDialog eDialog;
     private PresetList presetList;
     private String foodname;
@@ -46,32 +48,56 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     private void Initial(){
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
-
+    
+    
     private void setComponent(){
         menu = new JLabel("MENU", SwingConstants.CENTER);
-        menu.setFont(new Font("Tahoma", Font.PLAIN, 80));
+        menu.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 80));
+        menu.setForeground(Color.decode("#98623C"));
         menu.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         
+
         presetList = new PresetList(randomlist,defmodel);
         
         save = new JButton("SAVE");
-        save.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        save.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+        save.setBackground(Color.decode("#FFE49D"));
+        save.setBorder(BorderFactory.createLineBorder(Color.decode("#D0915A"), 4));
         save.addActionListener(this);
 
         catalog = new JButton("CATALOG");
-        catalog.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        catalog.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
+        catalog.setBackground(Color.decode("#FFE49D"));
+        catalog.setBorder(BorderFactory.createLineBorder(Color.decode("#D0915A"), 4));
         catalog.addActionListener(this);
 
+
+        scatalog = new JLabel("Catalog Name");
+        scatalog.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+        scatalog.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        scatalog.setForeground(Color.decode("#98623C"));
+
         einput = new JTextField();
-        einput.setColumns(20);
+        einput.setPreferredSize(new Dimension(300, 30));
+        einput.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        einput.addKeyListener(this);
+
         esave = new JButton("Save");
-        eDialog = new JDialog();
-        eDialog.setLayout(new FlowLayout());
+        esave.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
+        esave.setPreferredSize(new Dimension(80, 30));
+        esave.setBackground(Color.decode("#FFE49D"));
+        esave.setBorder(BorderFactory.createLineBorder(Color.decode("#D0915A"), 3));
         esave.addActionListener(this);
+
+        eDialog = new JDialog();
+        eDialog.setLayout(new FlowLayout(FlowLayout.CENTER));
+        eDialog.add(scatalog);
         eDialog.add(einput);
         eDialog.add(esave);
+        eDialog.getContentPane().setBackground(Color.decode("#FAE5C7"));
         
         foodlist = new JList<String>(defmodel);
+        foodlist.setFont(new Font("TH Sarabun New", Font.BOLD, 18));
         foodlist.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         foodlist.setVisibleRowCount(-1);
         
@@ -80,6 +106,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         scrollPane.setPreferredSize(new Dimension(400, 150));
         
         input = new JTextField("Food name...");
+        input.setFont(new Font("TH Sarabun New", Font.PLAIN, 18));
         input.setPreferredSize(new Dimension(400, 50));
         input.addFocusListener(new FocusListener() {
             @Override
@@ -101,33 +128,41 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         input.addKeyListener(this);
 
         spin = new JButton("SPIN");
-        spin.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        spin.setPreferredSize(new Dimension(160, 80));
+        spin.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 25));
+        spin.setPreferredSize(new Dimension(180, 100));
+        spin.setBackground(Color.decode("#FFE49D"));
+        spin.setBorder(BorderFactory.createLineBorder(Color.decode("#D0915A"), 8));
         spin.addActionListener(this);
         
         add = new JButton("ADD");
-        add.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        add.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+        add.setBackground(Color.decode("#98FB98"));
+        add.setBorder(BorderFactory.createLineBorder(Color.decode("#4CBB17"), 4));
         add.addActionListener(this);
         
         delete = new JButton("DELETE");
-        delete.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        delete.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+        delete.setBackground(Color.decode("#FF4040"));
+        delete.setBorder(BorderFactory.createLineBorder(Color.decode("#8B0000"), 4));
         delete.addActionListener(this);
         this.add(delete);
         
         clear = new JButton("CLEAR");
-        clear.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        clear.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+        clear.setBackground(Color.decode("#FFE49D"));
+        clear.setBorder(BorderFactory.createLineBorder(Color.decode("#D0915A"), 4));
         clear.addActionListener(this);
 
     }
 
     private void setComponentLocation(){
-
+        eDialog.getContentPane().setSize(300, 200);
         topPanel = new JPanel();
         topPanel.setPreferredSize(new Dimension(600, 120));
         topPanel.add(menu);
         this.add(topPanel);
         
-        foodlist.setBounds(40, 300, 400, 150);
+        
         
         centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
@@ -168,7 +203,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
                 rightPanel.add(clear);
                 rightPanel.add(delete);
                 rightPanel.add(add);
-                rightPanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 30, 40));
+                rightPanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 30, 35));
             }
         }
         centerPanel.add(leftPanel);
@@ -182,7 +217,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         bottomPanel.add(spin);
         this.add(bottomPanel);
         
-        eDialog.setSize(300, 100);
+        eDialog.setSize(450, 150);
 
         this.revalidate();
         this.repaint();
@@ -190,8 +225,19 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     
     private void Finally(){
         this.setOpaque(false);//พื้นหลังโปร่งใส่
+        topPanel.setOpaque(false);
+        bottomPanel.setOpaque(false);
+        rightPanel.setOpaque(false);
+        inputPanel.setOpaque(false);
+        presetPanel.setOpaque(false);
+        scrollPanel.setOpaque(false);
+        centerPanel.setOpaque(false);
+        leftPanel.setOpaque(false);
+
+        //topPanel, bottomPanel, rightPanel, inputPanel, presetPanel, scrollPanel, centerPanel, leftPanel;
         this.setSize(600, 800);
         eDialog.setLocationRelativeTo(null);
+        eDialog.setResizable(false);
         UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
     }
 
@@ -216,8 +262,11 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
     public void actionPerformed(ActionEvent e) {
         
         if(e.getSource() == add){
-            randomlist.addtoList(input.getText());
-            addToJlist(input.getText());
+            
+            if(!(input.getText().equals("Food name..."))){
+                randomlist.addtoList(input.getText());
+                addToJlist(input.getText());
+            }
             input.setText("Food name...");
             input.setForeground(Color.GRAY);
         }
@@ -233,8 +282,13 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         }
 
         if(e.getSource() == esave){
-            eDialog.setVisible(false);
-            catalogMethod.createCatalog(randomlist, einput.getText());
+            
+            if(!catalogMethod.catalogContain(einput.getText()) && !randomlist.isEmpty()){
+                catalogMethod.createCatalog(randomlist, einput.getText());
+                einput.setText("");
+                eDialog.setVisible(false);
+            }
+            
         }
 
         if(e.getSource() == delete){
@@ -256,14 +310,34 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if(input.getText().length() >= 20){
+        
+        if(e.getSource() == input){
+            if(input.getText().length() >= 20){
             e.consume();
         }
-     }
 
-     @Override
-     public void keyPressed(KeyEvent e) {}
+        if(e.getKeyChar() == ' ' || !Character.isAlphabetic(e.getKeyChar())){
+            e.consume();
+        }
 
-     @Override
-     public void keyReleased(KeyEvent e) {}
+        }
+
+        if(e.getSource() == einput){
+            if(einput.getText().length() >= 20){
+            e.consume();
+            }
+            if(e.getKeyChar() == ' ' || !Character.isLetterOrDigit(e.getKeyChar())){
+                e.consume();
+            }
+
+        }
+        
+    }
+    
+
+    @Override
+    public void keyPressed(KeyEvent e) {}
+    
+    @Override
+    public void keyReleased(KeyEvent e) {}
 }

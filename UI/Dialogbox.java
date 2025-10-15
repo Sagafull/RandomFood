@@ -36,16 +36,21 @@ public class Dialogbox extends JDialog implements ActionListener {
 
     private void setComponent(){
         randomfood = new JLabel(randomname, SwingConstants.CENTER);
-        randomfood.setFont(new Font("Tahoma" ,Font.PLAIN, 40));
+        randomfood.setFont(new Font("TH Sarabun New" ,Font.BOLD, 40));
+        randomfood.setForeground(Color.decode("#98623C"));
 
         confirm = new JButton("Confrim");
-        confirm.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        confirm.setPreferredSize(new Dimension(150, 60));
+        confirm.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 24));
+        confirm.setBackground(Color.decode("#98FB98"));
+        confirm.setBorder(BorderFactory.createLineBorder(Color.decode("#4CBB17"), 6));
+        confirm.setPreferredSize(new Dimension(160,100));
         confirm.addActionListener(this);
 
         tryagain = new JButton("Try Again");
-        tryagain.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        tryagain.setPreferredSize(new Dimension(150, 60));
+        tryagain.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 24));
+        tryagain.setBackground(Color.decode("#FF4040"));
+        tryagain.setBorder(BorderFactory.createLineBorder(Color.decode("#8B0000"), 6));
+        tryagain.setPreferredSize(new Dimension(160, 100));
         tryagain.addActionListener(this);
         
     }
@@ -66,10 +71,14 @@ public class Dialogbox extends JDialog implements ActionListener {
     }
     private void Finally(){
         this.setSize(600,400);
+        gbuttonPanel.setOpaque(false);
+        frandomPanel.setOpaque(false);
+        this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -84,7 +93,7 @@ public class Dialogbox extends JDialog implements ActionListener {
             this.setVisible(false);
         }
 
-        
+
     }
     
 }

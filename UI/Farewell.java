@@ -24,11 +24,14 @@ public class Farewell extends JDialog implements ActionListener {
     
     private void setComponent(){
         farewell = new JLabel("Enjoy Eating !!!", SwingConstants.CENTER);
-        farewell.setFont(new Font("Tahoma", Font.PLAIN, 40));
+        farewell.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 40));
+        farewell.setForeground(Color.decode("#98623C"));
 
-        ok = new JButton("->");
-        ok.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        ok = new JButton(">");
+        ok.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
         ok.setPreferredSize(new Dimension(50, 50));
+        ok.setBackground(Color.decode("#FFE49D"));
+        ok.setBorder(BorderFactory.createLineBorder(Color.decode("#D0915A"), 4));
         ok.addActionListener(this);
     }
 
@@ -36,16 +39,19 @@ public class Farewell extends JDialog implements ActionListener {
         wellPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 140));
         wellPanel.setPreferredSize(new Dimension(600, 200));
         wellPanel.add(farewell);
+        wellPanel.setOpaque(false);
         this.add(wellPanel);
 
-        okbuttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 3, 1));
+        okbuttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 3, 3));
         okbuttonPanel.setPreferredSize(new Dimension(600, 200));
         okbuttonPanel.add(ok);
+        okbuttonPanel.setOpaque(false);
         this.add(okbuttonPanel);
     }
 
     private void Finally(){
         this.setSize(600, 400);
+        this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setLocationRelativeTo(null);
 
     }

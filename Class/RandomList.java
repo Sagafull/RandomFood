@@ -59,6 +59,10 @@ public class RandomList{
         return randomlist.size();
     }
 
+    public boolean isEmpty(){
+        return randomlist.isEmpty();
+    }
+
     public boolean Listcontain(String name){
         boolean check = false;
         for(int i = 0 ; i < randomlist.size() ;i++ ){

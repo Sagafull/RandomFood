@@ -9,13 +9,14 @@ import Class.RandomList;
 
 public class Keepbox extends JDialog implements ActionListener {
 
-    private JLabel randomfood, keepfood;
+    private JLabel keepfood;
     private String randomname;
     private JFrame frame;
     private RandomList randomList;
     private DefaultListModel defmodel;
     private JPanel keepfoodPanel, lbuttonPanel;
     private JButton keep,delete;
+    private Dialogbox dialogbox;
     
     public Keepbox(String randomname, RandomList randomList, DefaultListModel defmodel, JFrame frame){
         this.randomname = randomname;
@@ -34,20 +35,23 @@ public class Keepbox extends JDialog implements ActionListener {
     }
 
     private void setComponent(){
-        randomfood = new JLabel(randomname, SwingConstants.CENTER);
-        randomfood.setFont(new Font("Tahoma" ,Font.PLAIN, 40));
 
-        keepfood = new JLabel("Keep: " + randomname + " ?");
-        keepfood.setFont(new Font("Tahoma", Font.PLAIN, 40));
+        keepfood = new JLabel(randomname);
+        keepfood.setFont(new Font("TH Sarabun New", Font.BOLD, 40));
+        keepfood.setForeground(Color.decode("#98623C"));
         
         keep = new JButton("KEEP");
-        keep.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        keep.setPreferredSize(new Dimension(150, 60));
+        keep.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 24));
+        keep.setBackground(Color.decode("#98FB98"));
+        keep.setBorder(BorderFactory.createLineBorder(Color.decode("#4CBB17"), 6));
+        keep.setPreferredSize(new Dimension(160, 100));
         keep.addActionListener(this);
 
         delete = new JButton("DELETE");
-        delete.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        delete.setPreferredSize(new Dimension(150, 60));
+        delete.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 24));
+        delete.setBackground(Color.decode("#FF4040"));
+        delete.setBorder(BorderFactory.createLineBorder(Color.decode("#8B0000"), 4));
+        delete.setPreferredSize(new Dimension(160, 100));
         delete.addActionListener(this);
 
     }
@@ -68,6 +72,9 @@ public class Keepbox extends JDialog implements ActionListener {
     }
     private void Finally(){
         this.setSize(600,400);
+        keepfoodPanel.setOpaque(false);
+        lbuttonPanel.setOpaque(false);
+        this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -90,8 +97,15 @@ public class Keepbox extends JDialog implements ActionListener {
                     defmodel.removeElementAt(i);
                 }
             }
+            if(!randomList.isEmpty()){
+                new Dialogbox(randomList, defmodel, frame).setVisible(true);
+            }
+            else{
+                new Farewell(frame).setVisible(true);
+            }
+            
+            
 
-            new Dialogbox(randomList, defmodel, frame).setVisible(true);
             this.setVisible(false);
         }
 
