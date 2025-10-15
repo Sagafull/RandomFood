@@ -82,6 +82,7 @@ public class PresetList extends JPanel implements ActionListener {
         foodpreset9 = new JCheckBox("VietnamFood");
         foodpreset9.setFont(new Font("Tahoma", Font.PLAIN, 14));
         foodpreset9.setBackground(Color.decode("#FAE5C7"));
+        foodpreset9.addActionListener(this);
         foodpreset9.setOpaque(false);
         foodpreset9.addActionListener(this);
         this.add(foodpreset9);
@@ -248,3 +249,4 @@ public class PresetList extends JPanel implements ActionListener {
         
     }
 }
+
