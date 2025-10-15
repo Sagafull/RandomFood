@@ -120,6 +120,34 @@ public class PresetList extends JPanel implements ActionListener {
                 foodpreset8.setSelected(true);
                 foodpreset9.setSelected(true);
 
+                if(foodpreset1.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "ThaiFood");
+                }
+                if(foodpreset2.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "JapaneseFood");
+                }
+                if(foodpreset3.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "ChineseFood");
+                }
+                if(foodpreset4.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "EnglishFood");
+                }
+                if(foodpreset5.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "KoreanFood");
+                }
+                if(foodpreset6.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "IndianFood");
+                }
+                if(foodpreset7.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "MaxicoFood");
+                }
+                if(foodpreset8.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "ItalianFood");
+                }
+                if(foodpreset9.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "VietnamFood");
+                }
+
                 dataMethod.getPreset(randomList,defmodel, "ThaiFood");
                 dataMethod.getPreset(randomList,defmodel, "JapaneseFood");
                 dataMethod.getPreset(randomList,defmodel, "ChineseFood");
