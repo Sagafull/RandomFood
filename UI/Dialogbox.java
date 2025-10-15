@@ -73,6 +73,7 @@ public class Dialogbox extends JDialog implements ActionListener {
         this.setSize(600,400);
         gbuttonPanel.setOpaque(false);
         frandomPanel.setOpaque(false);
+        this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
         this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -97,3 +98,4 @@ public class Dialogbox extends JDialog implements ActionListener {
     }
     
 }
+
