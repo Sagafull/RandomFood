@@ -144,6 +144,7 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     }
 
     private void Finally(){
+        this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
         this.setSize(600, 800);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#FAE5C7"));
@@ -219,3 +220,4 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     }
 }
 }
+
