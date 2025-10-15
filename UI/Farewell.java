@@ -51,6 +51,7 @@ public class Farewell extends JDialog implements ActionListener {
 
     private void Finally(){
         this.setSize(600, 400);
+        this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
         this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setLocationRelativeTo(null);
 
@@ -64,3 +65,4 @@ public class Farewell extends JDialog implements ActionListener {
         }
     }
 }
+
