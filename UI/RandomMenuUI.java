@@ -316,7 +316,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
             e.consume();
         }
 
-        if(e.getKeyChar() == ' ' || !Character.isAlphabetic(e.getKeyChar())){
+        if(e.getKeyChar() == ' ' || e.getKeyChar() == '.'){
             e.consume();
         }
 
@@ -326,7 +326,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
             if(einput.getText().length() >= 20){
             e.consume();
             }
-            if(e.getKeyChar() == ' ' || !Character.isLetterOrDigit(e.getKeyChar())){
+            if(e.getKeyChar() == ' ' || e.getKeyChar() == '.'){
                 e.consume();
             }
 
