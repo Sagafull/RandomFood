@@ -270,7 +270,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         this.setSize(600, 800);
         eDialog.setLocationRelativeTo(null);
         eDialog.setResizable(false);
-        UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
+
     }
 
     

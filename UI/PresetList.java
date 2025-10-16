@@ -92,6 +92,14 @@ public class PresetList extends JPanel implements ActionListener {
         GetAll.addActionListener(this);
         this.add(GetAll);
 
+        for (Component c : this.getComponents()) {
+            if (c instanceof JCheckBox checkBox) {
+                checkBox.setFocusPainted(false);
+                checkBox.setBorderPainted(false);
+                checkBox.setContentAreaFilled(false);
+            }
+        }
+        
     }
 
     private void setComponentLocation(){
