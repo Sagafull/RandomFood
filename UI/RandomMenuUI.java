@@ -286,6 +286,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         }
         if(e.getSource() == clear){
             randomlist.clearList();
+            presetList.setAlloff();
             defmodel.clear();
             
         }

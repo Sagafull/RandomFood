@@ -109,6 +109,19 @@ public class PresetList extends JPanel implements ActionListener {
     private void Finally(){
         this.setOpaque(false);
     }
+
+    public void setAlloff(){
+                foodpreset1.setSelected(false);
+                foodpreset2.setSelected(false);
+                foodpreset3.setSelected(false);
+                foodpreset4.setSelected(false);
+                foodpreset5.setSelected(false);
+                foodpreset6.setSelected(false);
+                foodpreset7.setSelected(false);
+                foodpreset8.setSelected(false);
+                foodpreset9.setSelected(false);
+                GetAll.setSelected(false);
+    }
     
     @Override
     public void actionPerformed(ActionEvent e) {
