@@ -48,30 +48,36 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
         scrollPane.setPreferredSize(new Dimension(500, 400));
         
         cat = new JLabel("Catalog", SwingConstants.CENTER);
-        cat.setFont(new Font("Tahoma" ,Font.PLAIN, 60));
-        cat.setForeground(Color.WHITE);
+        cat.setFont(new Font("Arial Rounded MT Bold" ,Font.PLAIN, 60));
+        cat.setForeground(Color.decode("#98623C"));
         
         catlist = new JLabel("Catalog List");
-        catlist.setFont(new Font("Tahoma" ,Font.PLAIN, 25));
-        catlist.setForeground(Color.WHITE);
+        catlist.setFont(new Font("Arial Rounded MT Bold" ,Font.PLAIN, 25));
+        catlist.setForeground(Color.decode("#98623C"));
 
         menu = new JLabel("Menu List");
-        menu.setFont(new Font("Tahoma" ,Font.PLAIN, 25));
-        menu.setForeground(Color.WHITE);
+        menu.setFont(new Font("Arial Rounded MT Bold" ,Font.PLAIN, 25));
+        menu.setForeground(Color.decode("#98623C"));
 
         add = new JButton("ADD");
-        add.setFont(new Font("Tahoma" ,Font.PLAIN, 20));
+        add.setFont(new Font("Arial Rounded MT Bold" ,Font.BOLD, 20));
+        add.setBackground(Color.decode("#98FB98"));
+        add.setBorder(BorderFactory.createLineBorder(Color.decode("#4CBB17"), 4));
         add.setPreferredSize(new Dimension(120, 60));
         add.addActionListener(this);
 
         remove = new JButton("Remove");
-        remove.setFont(new Font("Tahoma" ,Font.PLAIN, 20));
+        remove.setFont(new Font("Arial Rounded MT Bold" ,Font.BOLD, 20));
         remove.setPreferredSize(new Dimension(120, 60));
+        remove.setBackground(Color.decode("#FFE49D"));
+        remove.setBorder(BorderFactory.createLineBorder(Color.decode("#D0915A"), 4));
         remove.addActionListener(this);
 
         delete = new JButton("DELETE");
-        delete.setFont(new Font("Tahoma" ,Font.PLAIN, 20));
+        delete.setFont(new Font("Arial Rounded MT Bold" ,Font.BOLD, 20));
         delete.setPreferredSize(new Dimension(120, 60));
+        delete.setBackground(Color.decode("#FF4040"));
+        delete.setBorder(BorderFactory.createLineBorder(Color.decode("#8B0000"), 4));
         delete.addActionListener(this);
 
         
@@ -102,21 +108,21 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
         centerPanel.setPreferredSize(new Dimension(600, 550));
         // leftPanel, rightPanel ใน centerPanel
         {
-        leftPanel = new JPanel();
-        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-        leftPanel.setPreferredSize(new Dimension(300, 500));
-        leftPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,5));
-        leftPanel.add(catlist);
-        leftPanel.add(Box.createVerticalStrut(15));
-        leftPanel.add(scrollPanecat);
+            leftPanel = new JPanel();
+            leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+            leftPanel.setPreferredSize(new Dimension(300, 500));
+            leftPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,5));
+            leftPanel.add(catlist);
+            leftPanel.add(Box.createVerticalStrut(15));
+            leftPanel.add(scrollPanecat);
 
-        rightPanel = new JPanel();
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-        rightPanel.setPreferredSize(new Dimension(300, 500));
-        rightPanel.setBorder(BorderFactory.createEmptyBorder(10,5,10,10));
-        rightPanel.add(menu);
-        rightPanel.add(Box.createVerticalStrut(15));
-        rightPanel.add(scrollPanemenu);
+            rightPanel = new JPanel();
+            rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+            rightPanel.setPreferredSize(new Dimension(300, 500));
+            rightPanel.setBorder(BorderFactory.createEmptyBorder(10,5,10,10));
+            rightPanel.add(menu);
+            rightPanel.add(Box.createVerticalStrut(15));
+            rightPanel.add(scrollPanemenu);
         }
         centerPanel.add(leftPanel);
         centerPanel.add(rightPanel);
@@ -138,23 +144,26 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     }
 
     private void Finally(){
-        this.setSize(600, 800);
-        this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(Color.BLACK);
+        
         topPanel.setOpaque(false);
         centerPanel.setOpaque(false);
         leftPanel.setOpaque(false);
         rightPanel.setOpaque(false);
         bottomPanel.setOpaque(false);
+        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        this.setSize(600, 800);
+        this.setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.decode("#FAE5C7"));
+        this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
         //topPanel, centerPanel, leftPanel, rightPanel, bottomPanel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == add){
-            catalogmethod.getCatalog(this.randomList, catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
+            catalogmethod.getCatalog(this.randomList, catalogmethod.getCatalogName(cataloglist.getSelectedValue().toString()));
             
-            catalogmethod.getCatalog(this.tmp, catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
+            catalogmethod.getCatalog(this.tmp, catalogmethod.getCatalogName(cataloglist.getSelectedValue().toString()));
             
             for(int i = 0; i < tmp.getListLength(); i++){
                 if(!(defmodelfoodlist.contains(tmp.getName(i)))){
@@ -164,9 +173,9 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
             tmp.clearList();
         }
         if(e.getSource() == remove){
-            catalogmethod.removeCatalog(this.randomList, catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
+            catalogmethod.removeCatalog(this.randomList, catalogmethod.getCatalogName(cataloglist.getSelectedValue().toString()));
 
-            catalogmethod.getCatalog(this.tmp, catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
+            catalogmethod.getCatalog(this.tmp, catalogmethod.getCatalogName(cataloglist.getSelectedValue().toString()));
 
             for(int i = 0; i < defmodelfoodlist.size(); i++){
                 System.out.println(defmodelfoodlist.get(i));
@@ -186,9 +195,11 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
         if(e.getSource() == delete){
             tmp2.clearList();
             defmodelmenu.clear();
-            catalogmethod.deleteCatalog(catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
-            defmodelcat.removeElementAt(cataloglist.getSelectedIndex());
-            catalogmethod.InstallCatalogNameList();
+            catalogmethod.deleteCatalog(catalogmethod.getCatalogName(cataloglist.getSelectedValue().toString()));
+            defmodelcat.removeElement(cataloglist.getSelectedValue().toString());
+            cataloglist.removeAll();
+            cataloglist.setModel(defmodelcat);
+            
         }
     }
 
@@ -196,14 +207,17 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
     public void valueChanged(ListSelectionEvent e) {
       
         if(cataloglist.getSelectedIndex() != -1){
-        catalogmethod.getCatalog(tmp2, catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
+        catalogmethod.getCatalog(tmp2, catalogmethod.getCatalogName(cataloglist.getSelectedValue().toString()));
+        System.out.println(catalogmethod.getCatalogName(cataloglist.getSelectedIndex()));
+        System.out.println(cataloglist.getSelectedValue());
+        System.out.println(cataloglist.getSelectedIndex());
         for(int i = 0; i < tmp2.getListLength(); i++){
         defmodelmenu.addElement(tmp2.getName(i));
         }
         if(e.getValueIsAdjusting()){
             defmodelmenu.clear();
             tmp2.clearList();
-            catalogmethod.InstallCatalogNameList();
+            
         }
     }
 }

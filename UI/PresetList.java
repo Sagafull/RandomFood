@@ -13,7 +13,6 @@ public class PresetList extends JPanel implements ActionListener {
     private JCheckBox foodpreset4,foodpreset5,foodpreset6;
     private JCheckBox foodpreset7,foodpreset8,foodpreset9;
     private JCheckBox GetAll;
-    private JPanel psPanel = new JPanel();
     private RandomList randomList;
     private DataMethod dataMethod = new DataMethod();
     private DefaultListModel defmodel;
@@ -28,68 +27,85 @@ public class PresetList extends JPanel implements ActionListener {
     }
     
     private void Initial(){
-        psPanel.setLayout(new GridLayout(4, 3, 10, 10));
+        this.setLayout(new GridLayout(4,3, 25, 12));
     }
     
     private void setComponent(){
         foodpreset1 = new JCheckBox("ThaiFood");
         foodpreset1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        foodpreset1.setOpaque(false);
         foodpreset1.addActionListener(this);
-        psPanel.add(foodpreset1);
+        this.add(foodpreset1);
 
         foodpreset2 = new JCheckBox("JapaneseFood");
         foodpreset2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        foodpreset2.setOpaque(false);
         foodpreset2.addActionListener(this);
-        psPanel.add(foodpreset2);
+        this.add(foodpreset2);
 
         foodpreset3 = new JCheckBox("ChineseFood");
         foodpreset3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        foodpreset3.setOpaque(false);
         foodpreset3.addActionListener(this);
-        psPanel.add(foodpreset3);
+        this.add(foodpreset3);
 
         foodpreset4 = new JCheckBox("EnglishFood");
         foodpreset4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        foodpreset4.setOpaque(false);
         foodpreset4.addActionListener(this);
-        psPanel.add(foodpreset4);
+        this.add(foodpreset4);
 
         foodpreset5 = new JCheckBox("KoreanFood");
         foodpreset5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        foodpreset5.setOpaque(false);
         foodpreset5.addActionListener(this);
-        psPanel.add(foodpreset5);
+        this.add(foodpreset5);
 
         foodpreset6 = new JCheckBox("IndiaFood");
         foodpreset6.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        foodpreset6.setOpaque(false);
         foodpreset6.addActionListener(this);
-        psPanel.add(foodpreset6);
+        this.add(foodpreset6);
 
         foodpreset7 = new JCheckBox("MaxicoFood");
         foodpreset7.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        foodpreset7.setOpaque(false);
         foodpreset7.addActionListener(this);
-        psPanel.add(foodpreset7);
+        this.add(foodpreset7);
 
         foodpreset8 = new JCheckBox("ItalianFood");
         foodpreset8.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        foodpreset8.setOpaque(false);
         foodpreset8.addActionListener(this);
-        psPanel.add(foodpreset8);
+        this.add(foodpreset8);
 
         foodpreset9 = new JCheckBox("VietnamFood");
         foodpreset9.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        foodpreset9.setBackground(Color.decode("#FAE5C7"));
         foodpreset9.addActionListener(this);
-        psPanel.add(foodpreset9);
+        foodpreset9.setOpaque(false);
+        this.add(foodpreset9);
 
         GetAll = new JCheckBox("All");
         GetAll.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        GetAll.setOpaque(false);
         GetAll.addActionListener(this);
-        psPanel.add(GetAll);
+        this.add(GetAll);
 
-        this.add(psPanel);
-
+        for (Component c : this.getComponents()) {
+            if (c instanceof JCheckBox checkBox) {
+                checkBox.setFocusPainted(false);
+                checkBox.setBorderPainted(false);
+                checkBox.setContentAreaFilled(false);
+            }
+        }
+        
     }
 
     private void setComponentLocation(){
-        psPanel.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 40));
+        this.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 10));
     }
-
+    
     private void Finally(){
         this.setOpaque(false);
     }
@@ -108,6 +124,34 @@ public class PresetList extends JPanel implements ActionListener {
                 foodpreset7.setSelected(true);
                 foodpreset8.setSelected(true);
                 foodpreset9.setSelected(true);
+
+                if(foodpreset1.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "ThaiFood");
+                }
+                if(foodpreset2.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "JapaneseFood");
+                }
+                if(foodpreset3.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "ChineseFood");
+                }
+                if(foodpreset4.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "EnglishFood");
+                }
+                if(foodpreset5.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "KoreanFood");
+                }
+                if(foodpreset6.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "IndianFood");
+                }
+                if(foodpreset7.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "MaxicoFood");
+                }
+                if(foodpreset8.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "ItalianFood");
+                }
+                if(foodpreset9.isSelected()){
+                    dataMethod.removePreset(randomList,defmodel, "VietnamFood");
+                }
 
                 dataMethod.getPreset(randomList,defmodel, "ThaiFood");
                 dataMethod.getPreset(randomList,defmodel, "JapaneseFood");
@@ -240,3 +284,4 @@ public class PresetList extends JPanel implements ActionListener {
         
     }
 }
+

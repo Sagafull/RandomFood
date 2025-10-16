@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import javax.swing.DefaultListModel;
 
@@ -23,7 +24,7 @@ public class DataMethod {
     public void getPreset(RandomList randomList,DefaultListModel dModel,String Listname){
         try {
             file = new File("./FoodData/PresetData/Preset.csv");
-            fileReader = new FileReader(file);
+            fileReader = new FileReader(file,Charset.forName("UTF8"));
             bufferedReader = new BufferedReader(fileReader);
             String food = "";
             while((food = bufferedReader.readLine()) != null){
@@ -52,7 +53,7 @@ public class DataMethod {
     public void getPreset(RandomList randomList,String Listname){
         try {
             file = new File("./FoodData/PresetData/Preset.csv");
-            fileReader = new FileReader(file);
+            fileReader = new FileReader(file,Charset.forName("UTF8"));
             bufferedReader = new BufferedReader(fileReader);
             String food = "";
             while((food = bufferedReader.readLine()) != null){
@@ -80,7 +81,7 @@ public class DataMethod {
     public void removePreset(RandomList randomList,DefaultListModel dModel,String Listname){
         try {
             file = new File("./FoodData/PresetData/Preset.csv");
-            fileReader = new FileReader(file);
+            fileReader = new FileReader(file,Charset.forName("UTF8"));
             bufferedReader = new BufferedReader(fileReader);
             String food = "";
             while((food = bufferedReader.readLine()) != null){

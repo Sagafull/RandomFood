@@ -9,23 +9,25 @@ import Class.RandomList;
 
 public class Keepbox extends JDialog implements ActionListener {
 
-    private JLabel randomfood, keepfood;
+    private JLabel keepfood, snail1, snail2;
     private String randomname;
     private JFrame frame;
     private RandomList randomList;
     private DefaultListModel defmodel;
-    private JPanel keepfoodPanel, lbuttonPanel;
-    private CustomeButton keep,delete;
+    private JPanel keepfoodPanel, lbuttonPanel, snailPanel;
+    private JButton keep,delete;
+    private Dialogbox dialogbox;
     
     public Keepbox(String randomname, RandomList randomList, DefaultListModel defmodel, JFrame frame){
         this.randomname = randomname;
         this.randomList = randomList;
         this.defmodel = defmodel;
+        this.frame = frame;
         Initial();
         setComponent();
         setComponentLocation();
         Finally();
-        this.frame = frame;
+        
         
     }
 
@@ -34,60 +36,71 @@ public class Keepbox extends JDialog implements ActionListener {
     }
 
     private void setComponent(){
-        randomfood = new JLabel(randomname, SwingConstants.CENTER);
-        randomfood.setFont(new Font("Tahoma" ,Font.PLAIN, 40));
 
-        keepfood = new JLabel("Keep: " + randomname + " ?");
-        keepfood.setFont(new Font("Tahoma", Font.PLAIN, 40));
-        keepfood.setForeground(Color.WHITE);
+        keepfood = new JLabel(randomname);
+        keepfood.setFont(new Font("Tahoma", Font.BOLD, 30));
+        keepfood.setForeground(Color.decode("#98623C"));
         
-        keep = new CustomeButton("KEEP");
-        keep.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        keep.setRadius(365);
-        keep.setBackground(Color.GREEN);
-        keep.setPreferredSize(new Dimension(160, 100));
+        keep = new JButton("KEEP");
+        keep.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 24));
+        keep.setBackground(Color.decode("#98FB98"));
+        keep.setBorder(BorderFactory.createLineBorder(Color.decode("#4CBB17"), 6));
+        keep.setPreferredSize(new Dimension(130, 80));
         keep.addActionListener(this);
 
-        delete = new CustomeButton("DELETE");
-        delete.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        delete.setRadius(365);
-        delete.setBackground(Color.RED);
-        delete.setPreferredSize(new Dimension(160, 100));
+        delete = new JButton("DELETE");
+        delete.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 24));
+        delete.setBackground(Color.decode("#FF4040"));
+        delete.setBorder(BorderFactory.createLineBorder(Color.decode("#8B0000"), 4));
+        delete.setPreferredSize(new Dimension(130, 80));
         delete.addActionListener(this);
+
+        snail1 = new JLabel(new ImageIcon(new ImageIcon("UI/image/snail.png").getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        snail1.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        snail2 = new JLabel(new ImageIcon(new ImageIcon("UI/image/snail2.png").getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        snail2.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
     }
     private void setComponentLocation(){
 
-        keepfoodPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 70));
-        keepfoodPanel.setPreferredSize(new Dimension(600, 200));
+        keepfoodPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 45));
+        keepfoodPanel.setMaximumSize(new Dimension(600, 80));
         keepfoodPanel.add(keepfood);
         this.add(keepfoodPanel);
+        keepfoodPanel.setOpaque(false);
+
+        snailPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 110, 0));
+        snailPanel.setMaximumSize(new Dimension(600,120));
+        snailPanel.add(snail1);
+        snailPanel.add(snail2);
+        this.add(snailPanel);
+        snailPanel.setOpaque(false);
 
         lbuttonPanel = new JPanel();
         lbuttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
-        lbuttonPanel.setPreferredSize(new Dimension(600, 200));
+        lbuttonPanel.setMaximumSize(new Dimension(600, 200));
         lbuttonPanel.add(keep);
         lbuttonPanel.add(delete); 
         this.add(lbuttonPanel);
+        lbuttonPanel.setOpaque(false);
 
     }
     private void Finally(){
         this.setSize(600,400);
-        keepfoodPanel.setOpaque(false);
-        lbuttonPanel.setOpaque(false);
-        this.getContentPane().setBackground(Color.BLACK);
+        this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource() == keep){
-
+            
+            this.dispose();
             new Dialogbox(randomList, defmodel, frame).setVisible(true);
-            this.setVisible(false);
         }
 
         if(e.getSource() == delete){
@@ -98,9 +111,21 @@ public class Keepbox extends JDialog implements ActionListener {
                     defmodel.removeElementAt(i);
                 }
             }
-
-            new Dialogbox(randomList, defmodel, frame).setVisible(true);
-            this.setVisible(false);
+            if(!randomList.isEmpty()){
+                
+                this.dispose();
+                new Dialogbox(randomList, defmodel, frame).setVisible(true);
+                
+            }
+            else{
+                this.setModalityType(JDialog.ModalityType.MODELESS);
+                this.dispose();
+                new Farewell(frame).setVisible(true);
+                
+            }
+            this.dispose();
+    
+            
         }
 
         
