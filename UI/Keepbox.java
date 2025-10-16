@@ -38,7 +38,7 @@ public class Keepbox extends JDialog implements ActionListener {
     private void setComponent(){
 
         keepfood = new JLabel(randomname);
-        keepfood.setFont(new Font("TH Sarabun New", Font.BOLD, 50));
+        keepfood.setFont(new Font("Tahoma", Font.BOLD, 50));
         keepfood.setForeground(Color.decode("#98623C"));
         
         keep = new JButton("KEEP");

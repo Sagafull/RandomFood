@@ -96,7 +96,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         eDialog.getContentPane().setBackground(Color.decode("#FAE5C7"));
         
         foodlist = new JList<String>(defmodel);
-        foodlist.setFont(new Font("TH Sarabun New", Font.BOLD, 18));
+        foodlist.setFont(new Font("Tahoma", Font.PLAIN, 18));
         foodlist.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         foodlist.setVisibleRowCount(-1);
         
@@ -105,7 +105,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         scrollPane.setPreferredSize(new Dimension(400, 150));
         
         input = new JTextField("Food name...");
-        input.setFont(new Font("TH Sarabun New", Font.PLAIN, 18));
+        input.setFont(new Font("Tahoma", Font.PLAIN, 18));
         input.setPreferredSize(new Dimension(400, 50));
         input.addFocusListener(new FocusListener() {
             @Override
@@ -346,7 +346,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
             e.consume();
         }
 
-        if(e.getKeyChar() == ' ' || e.getKeyChar() == '.'){
+        if(e.getKeyChar() == ' ' || e.getKeyChar() == '.' || e.getKeyChar() == ':'){
             e.consume();
         }
 
@@ -356,7 +356,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
             if(einput.getText().length() >= 20){
             e.consume();
             }
-            if(e.getKeyChar() == ' ' || e.getKeyChar() == '.'){
+            if(e.getKeyChar() == ' ' || e.getKeyChar() == '.' || e.getKeyChar() == ':'){
                 e.consume();
             }
 

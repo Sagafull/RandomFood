@@ -36,7 +36,7 @@ public class Dialogbox extends JDialog implements ActionListener {
 
     private void setComponent(){
         randomfood = new JLabel(randomname, SwingConstants.CENTER);
-        randomfood.setFont(new Font("TH Sarabun New" ,Font.BOLD, 50));
+        randomfood.setFont(new Font("Tahoma" ,Font.BOLD, 50));
         randomfood.setForeground(Color.decode("#98623C"));
 
         confirm = new JButton("Confrim");

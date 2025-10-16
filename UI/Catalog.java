@@ -89,7 +89,7 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
         
         
         cataloglist = new JList<>(defmodelcat);
-        cataloglist.setFont(new Font("Arial Rounded MT Bold" ,Font.PLAIN, 20));
+        cataloglist.setFont(new Font("Tahoma" ,Font.PLAIN, 20));
         cataloglist.addListSelectionListener(this);
         scrollPanecat = new JScrollPane(cataloglist);
         scrollPanecat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

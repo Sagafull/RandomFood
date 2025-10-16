@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import Class.RandomList;
@@ -56,7 +57,7 @@ public class CatalogMethod {
         
         try {
             file = new File("./FoodData/CatalogData/"+catalogname+".csv");
-            fileReader = new FileReader(file);
+            fileReader = new FileReader(file,Charset.forName("UTF8"));
             bufferedReader = new BufferedReader(fileReader);
             String food = "";
             while((food = bufferedReader.readLine()) != null){
@@ -77,7 +78,7 @@ public class CatalogMethod {
     public void removeCatalog(RandomList randomList,String catalogname){
         try{
             file = new File("./FoodData/CatalogData/"+catalogname+".csv");
-            fileReader = new FileReader(file);
+            fileReader = new FileReader(file,Charset.forName("UTF8"));
             bufferedReader = new BufferedReader(fileReader);
             String food = "";
             while ((food = bufferedReader.readLine()) != null) {
@@ -103,7 +104,7 @@ public class CatalogMethod {
             InstallCatalogNameList();
             file = new File("./FoodData/CatalogData/"+catalogname+".csv");
             file.createNewFile();
-            fileWriter = new FileWriter(file);
+            fileWriter = new FileWriter(file,Charset.forName("UTF8"));
             bufferedWriter = new BufferedWriter(fileWriter);
             
                 for(int i = 0; i < randomList.getListLength(); i++){
