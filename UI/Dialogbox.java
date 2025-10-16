@@ -88,7 +88,6 @@ public class Dialogbox extends JDialog implements ActionListener {
         this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
     }
@@ -100,7 +99,7 @@ public class Dialogbox extends JDialog implements ActionListener {
         if(e.getSource() == confirm){
             
             this.dispose();
-            new Farewell(frame);
+            new Farewell(frame).setVisible(true);
             //frame.setContentPane(new StartUI(frame));
             
         }

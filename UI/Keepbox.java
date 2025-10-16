@@ -90,7 +90,6 @@ public class Keepbox extends JDialog implements ActionListener {
         this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
         this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
     }
 

@@ -152,6 +152,7 @@ public class Catalog extends JDialog implements ActionListener,ListSelectionList
         bottomPanel.setOpaque(false);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setSize(600, 800);
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);

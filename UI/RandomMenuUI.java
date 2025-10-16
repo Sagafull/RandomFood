@@ -94,6 +94,7 @@ public class RandomMenuUI extends JPanel implements ActionListener,KeyListener{
         eDialog.add(einput);
         eDialog.add(esave);
         eDialog.getContentPane().setBackground(Color.decode("#FAE5C7"));
+        eDialog.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
         
         foodlist = new JList<String>(defmodel);
         foodlist.setFont(new Font("Tahoma", Font.PLAIN, 14));

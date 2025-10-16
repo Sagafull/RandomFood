@@ -67,7 +67,6 @@ public class Farewell extends JDialog implements ActionListener {
         this.setSize(600, 400);
         this.getContentPane().setBackground(Color.decode("#FAE5C7"));
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
         this.setResizable(false);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
