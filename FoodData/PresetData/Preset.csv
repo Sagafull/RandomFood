@@ -1,0 +1,61 @@
+:ThaiFood
+ผัดไทย, Calories 600
+ผัดกะเพรา, Calories 700
+แกงเขียวหวาน, Calories 600
+ยำขนมจีน, Calories 400
+:END
+:JapaneseFood
+ซูชิ, Calories 300
+เทมปุระ, Calories 600
+ยากิโซบะ, Calories 500
+ไก่เทอริยากิ, Calories 350
+ซุปมิโซะ, Calories 100
+:END
+:ChineseFood
+ซุปค้างคาว, Calories 500
+เต้าหู้หม่าล่า, Calories 350
+เป็ดปักกิ่ง, Calories 800
+หอยจ๊อ, Calories 200
+ซาลาเปา, Calories 350
+:END
+:EnglishFood
+ปลาทอดกับมันฝรั่ง, Calories 700
+อาหารเช้าอังกฤษ, Calories 800
+ไส้กรอกกับมันฝรั่งบด, Calories 577
+บีฟเวลลิงตัน, Calories 456
+:END
+:KoreanFood
+บิบิมบับ, Calories 550
+กิมจิ , Calories 300
+บูลโกกิ, Calories 210
+ไก่ทอดเกาหลี, Calories 410
+ฮอบพัง, Calories 600
+:END
+:IndiaFood
+ไก่อบเนย, Calories 1000
+ปาลักปานีร์, Calories 1400
+แกงวินดาลู, Calories 1100
+แกงถั่ว, Calories 450
+ซามโมซา, Calories 300
+:END
+:MaxicoFood
+ไก่ผัดสไตล์เม็กซิกัน, Calories 1100
+ทาโก้เนื้อ, Calories 400
+เกซาดิยา, Calories 500
+เบอริโต้, Calories 300
+นาโช, Calories 2100
+:END
+:ItalianFood
+ลาซันยา, Calories 400
+สปาเก็ตตี้, Calories 700
+เฟตตูชินีอัลเฟรโด, Calories 300
+มะเขือม่วงพาร์เมซาน, Calories 100
+พิซซ่า, Calories 600
+:END
+:VietnamFood
+เฝอ, Calories 500
+ก๋วยเตี๋ยวปอเปี๊ยะสด, Calories 400
+ก๋วยเตี๋ยวเส้นข้าว, Calories 345
+บั๊ญหมี่, Calories 456
+ข้าวหัก, Calories 354
+:END
